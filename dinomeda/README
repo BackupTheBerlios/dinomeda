@@ -34,13 +34,13 @@ involved classes.
 Requirements:
 The library has no external requirements other than Java.
 
-The example implementation requires two additonal class libraries, both
-being included in our CVS repository (both licenced under LGPL as well):
-PAT (www.javaregex.com) and Sixlegs PNG Decoder (www.sixlegs.com/software/png).
+The example implementation requiresone additonal class library, which is
+included in our CVS repository (licenced under LGPL as well):
+Sixlegs PNG Decoder (www.sixlegs.com/software/png).
 The Release package contains only our code.
 
-The demo application requires a Java2 implementation due to its SWING GUI mode.
-It has be tested using a Blackdown JDK1.3.1 on Linux.
+The demo application requires a Java2 implementation >= 1.4.0 due to its SWING GUI mode
+and the use of the Java regular expression extension.
 
 The Makefile located in the project's top directory is only tested under Linux.
 It contains some references to Unix shell commands, such as rm, cd and mkdir.
