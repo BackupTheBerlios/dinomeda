@@ -51,6 +51,9 @@ Using the Makefile, building library, plugins and demo application is as simple
 as
 #> make
 The Makefile from CVS will also compile the support libraries.
+If you are using a Release packag you might have to change the classpath
+in the Makefile variable JCFLAGS to include the path you installed the
+support libraries to.
 
 Creating the javadoc API documentation can be done by using the Makefile target doc
 #> make doc

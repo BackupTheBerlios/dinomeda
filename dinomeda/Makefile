@@ -1,5 +1,5 @@
 export JAVAC=javac
-export JCFLAGS=-sourcepath src -d classes
+export JCFLAGS=-sourcepath src -classpath classes -d classes
 export PACKAGEBASE=org/dinopolis/util/metadata
 
 all: classdir sixlegs base dinomeda demo
