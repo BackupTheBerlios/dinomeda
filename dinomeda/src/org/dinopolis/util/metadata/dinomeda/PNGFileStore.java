@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PNGFileStore.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: PNGFileStore.java,v 1.2 2003/03/05 09:03:52 osma Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -38,63 +38,31 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *
+ *//**
  * The PNGFileStore 
  */
 
 public class PNGFileStore implements DMDFileStore
 {
-    
-  //---------------------------------------------------------------
-  /**
-   * Constructs a PNGFileStore object
-   */
-  public PNGFileStore()
-  {
-  }
-
-  //---------------------------------------------------------------
-  /**
-   * Constructs a PNGFileStore object from a local PNG file.
-   */   
-  public PNGFileStore(String filename) throws FileNotFoundException 
-  {
-    setFileName(filename);
-  }
-  
-  //---------------------------------------------------------------
-  /**
-   * Get file
-   */
-  public File getFile()
+    public File getFile()
   {
     return file_;
   }
 
   //---------------------------------------------------------------
-  /**
-   * Set file.
-   */
+  
   public void setFile(File file) 
   {
     file_ = file;
   }
 
   //---------------------------------------------------------------
-  /**
-   * Set filename
-   */
+  
   public void setFileName(String filename) throws FileNotFoundException 
   {
     file_ = new File(filename);
   }
-
-
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public int getIOMode()
+  public int getIOMode()
   {
     if (file_ == null || !file_.exists())
     {
@@ -111,9 +79,7 @@ public class PNGFileStore implements DMDFileStore
   }
   
   //---------------------------------------------------------------
-  /**
-   * Read metadata form the PNG file.
-   */
+  
   public int read(DMDJobList joblist)  throws IOException 
   {
     int count = 0;
@@ -145,10 +111,6 @@ public class PNGFileStore implements DMDFileStore
     return count;
   }  
 
-  //---------------------------------------------------------------    
-  /**
-   * Read metadata form the PNG file.
-   */
   public int read(String item) throws IOException 
   {
     DMDJobList joblist = new DMDJobList();
@@ -156,72 +118,42 @@ public class PNGFileStore implements DMDFileStore
     return read(joblist); 
   }  
   
-  //---------------------------------------------------------------  
-  /**
-   * Read metadata form the PNG file.
-   */
   public int read() throws IOException 
   {
     return read(joblist_);
   }
 
-  
-  //---------------------------------------------------------------  
-  /**
-   * Write metadata to PNG file.
-   * not implemented
-   */
   public int write(String item) throws IOException 
   {
     throw new IOException();
   }
   
-  //---------------------------------------------------------------  
-  /**
-   * Write metadata to PNG file.
-   * not implemented
-   */  
   public int write(DMDJobList joblist) throws IOException 
   {
     throw new IOException();
   }
   
-  //---------------------------------------------------------------  
-  /**
-   * Write metadata to PNG file.
-   * not implemented
-   */
   public int write() throws IOException 
   { 
     throw new IOException(); 
   }
 
-  
   //---------------------------------------------------------------  
-  /**
-   * Update metadata in PNG file.
-   * not implemented
-   */
+ 
   public int update(String item) throws IOException
   {
     throw new IOException();
   }
   
   //---------------------------------------------------------------  
-  /**
-   * Update metadata in PNG file.
-   * not implemented
-   */
+  
   public int update(DMDJobList joblist) throws IOException
   {
     throw new IOException();
   }
 
   //---------------------------------------------------------------  
-  /**
-   * Update metadata in PNG file.
-   * not implemented
-   */
+  
   public int update() throws IOException
   {
     throw new IOException();
@@ -229,9 +161,7 @@ public class PNGFileStore implements DMDFileStore
 
 
   //---------------------------------------------------------------
-  /**
-  * Set element
-  */
+  
   public void setElement(DMDNode node)
   {
     String item = node.getPath() + node.getName();
@@ -242,9 +172,7 @@ public class PNGFileStore implements DMDFileStore
   }
   
   //---------------------------------------------------------------
-  /**
-  * Set elements
-  */
+  
   public void set(DMDNodeIterator iterator)
   {
     while (iterator.hasNext())
@@ -259,10 +187,7 @@ public class PNGFileStore implements DMDFileStore
   }
 
   //---------------------------------------------------------------
-  /**
-  * Get first element
-	* ok!
-  */
+  
   public DMDNode getElement(String path)
   {
     for (int i=0; i<dmdlist_.size(); i++)
@@ -278,9 +203,7 @@ public class PNGFileStore implements DMDFileStore
 
   
   //---------------------------------------------------------------
-  /**
-   * Get elements
-   */
+  
   public DMDNodeIterator get(String item) 
   {
     Vector list = new Vector();
@@ -300,9 +223,7 @@ public class PNGFileStore implements DMDFileStore
   }
   
   //---------------------------------------------------------------
-  /**
-   * toString
-   */
+  
   public String toString()
   {
     String out = new String();
@@ -314,9 +235,7 @@ public class PNGFileStore implements DMDFileStore
   }
   
   //---------------------------------------------------------------
-  /**
-   * Get MIME type
-   */
+  
   public String getMIMEType()
   {
     return "image/png";

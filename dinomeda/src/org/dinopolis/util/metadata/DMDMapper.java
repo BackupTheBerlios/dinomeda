@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDMapper.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DMDMapper.java,v 1.2 2003/03/05 09:03:52 osma Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2002-2003
@@ -23,7 +23,7 @@ package org.dinopolis.util.metadata;
  * @author: Martin Oswald <ossi1@sbox.tugraz.at>
  * @author: Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *
+ *//**
  * The base interface for handlers providing name mapping from the
  * internal namespace of a store to an external naming scheme
  * and vice versa.

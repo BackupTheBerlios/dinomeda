@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13Mapper.java,v 1.2 2003/03/03 15:05:16 osma Exp $
+// $Id: PDFv13Mapper.java,v 1.3 2003/03/05 09:03:52 osma Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -31,10 +31,10 @@ import java.net.URL;
 import org.dinopolis.util.metadata.*;
 
 /**
- * @author Martin Oswald <ossi1@sbox.tugraz.at> (mandatory)
- * @version 0.2.1 (mandatory)
- *
- * Class or interface description (mandatory)
+ * @author Martin Oswald <oss1@sbox.tugraz.at>
+ * @version 0.2.1
+ *//**
+ * Dinomeda mapper for metadata in PDF files
  */
 
 public class PDFv13Mapper extends DinomedaMapper

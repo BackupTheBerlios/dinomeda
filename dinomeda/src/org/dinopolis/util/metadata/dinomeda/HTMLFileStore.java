@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLFileStore.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: HTMLFileStore.java,v 1.2 2003/03/05 09:03:52 osma Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -41,62 +41,32 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *
+ *//**
  * The HTMLFileStore
  */
 
 public class HTMLFileStore implements DMDFileStore
 {
     
-  //---------------------------------------------------------------
-  /**
-   * Constructs a HTMLFileStore object
-   */
-  public HTMLFileStore()
-  {
-  }
-
-  //---------------------------------------------------------------
-  /**
-   * Constructs a HTMLFileStore object from a local HTML file.
-   */   
-  public HTMLFileStore(String filename) throws FileNotFoundException 
-  {
-    setFileName(filename);
-  }
-  
-  //---------------------------------------------------------------
-  /**
-   * Get file
-   */
   public File getFile()
   {
-     return file_;
+    return file_;
   }
 
   //---------------------------------------------------------------
-  /**
-   * Set file
-   */
+  
   public void setFile(File file) 
   {
     file_ = file;
   }
 
   //---------------------------------------------------------------
-  /**
-   * set filename
-   */
+  
   public void setFileName(String filename) throws FileNotFoundException 
   {
     file_ = new File(filename);
   }
-
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public int getIOMode()
+    public int getIOMode()
   {
     if (file_ == null || !file_.exists())
     {
@@ -115,13 +85,7 @@ public class HTMLFileStore implements DMDFileStore
     }
     
     return mode;
-  }
-  
-  //---------------------------------------------------------------  
-  /**
-   * Read metadata form the HTML file.
-   */
-  public int read(DMDJobList joblist) throws IOException 
+  }    public int read(DMDJobList joblist) throws IOException 
   {
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
@@ -166,10 +130,6 @@ public class HTMLFileStore implements DMDFileStore
     return count;
   }
 
-  //---------------------------------------------------------------  
-  /**
-   * Read metadata form the HTML file.
-   */
   public int read(String item) throws IOException 
   {
     DMDJobList joblist = new DMDJobList();
@@ -177,19 +137,11 @@ public class HTMLFileStore implements DMDFileStore
     return read(joblist); 
   }  
   
-  //---------------------------------------------------------------  
-  /**
-   * Read metadata form the HTML file.
-   */
   public int read()  throws IOException 
   {
     return read(joblist_);
   }    
   
-  //---------------------------------------------------------------  
-  /**
-   * Write metadata into the HTML file.
-   */ 
   public int write(DMDJobList joblist) throws IOException 
   {
     int count = 0;
@@ -297,10 +249,6 @@ public class HTMLFileStore implements DMDFileStore
     return count;
   }
 
-  //---------------------------------------------------------------  
-  /**
-   * Write metadata in the HTML file.
-   */ 
   public int write(String item) throws IOException 
   {    
     DMDJobList joblist = new DMDJobList();
@@ -308,19 +256,11 @@ public class HTMLFileStore implements DMDFileStore
     return write(joblist);
   }
 
-  //---------------------------------------------------------------    
-  /**
-   * Write metadata in the HTML file.
-   */ 
   public int write() throws IOException 
   {    
     return write(new DMDJobList());
   }
 
-  //---------------------------------------------------------------    
-  /**
-   * Update metadata in the HTML file.
-   */ 
   public int update(DMDJobList joblist) throws IOException
   {
     int count = 0;
@@ -421,10 +361,6 @@ public class HTMLFileStore implements DMDFileStore
     return count;
   }
 
-  //---------------------------------------------------------------    
-  /**
-   * Update metadata in the HTML file.
-   */ 
   public int update(String item) throws IOException
   {
     DMDJobList joblist = new DMDJobList();
@@ -432,20 +368,11 @@ public class HTMLFileStore implements DMDFileStore
     return update(joblist);
   }
 
-  //---------------------------------------------------------------    
-  /**
-   * Update metadata in the HTML file.
-   */ 
   public int update() throws IOException
   {
     return update(new DMDJobList());
   }
 
-  
-  //---------------------------------------------------------------
-  /**
-   * Set element
-   */
   public void setElement(DMDNode node)
   {
     String item = node.getPath() + node.getName();
@@ -464,10 +391,6 @@ public class HTMLFileStore implements DMDFileStore
     }
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Set elements
-   */
   public void set(DMDNodeIterator iterator)
   {
     while (iterator.hasNext())
@@ -477,10 +400,6 @@ public class HTMLFileStore implements DMDFileStore
     }
   }
 
-  //---------------------------------------------------------------
-  /**
-   * Get first element
-   */
   public DMDNode getElement(String path)
   {
     for (int i=0; i<metalist_.size(); i++)
@@ -496,11 +415,6 @@ public class HTMLFileStore implements DMDFileStore
     return new DMDNode();
   }
 
-  
-  //---------------------------------------------------------------
-  /**
-   * Get elements
-   */
   public DMDNodeIterator get(String item) 
   {
     Vector list = new Vector();
@@ -519,10 +433,6 @@ public class HTMLFileStore implements DMDFileStore
     return new DMDNodeIterator(list.iterator());
   }
 
-  //---------------------------------------------------------------
-  /**
-   * toString
-   */
   public String toString()
   {
     String out = new String();
@@ -533,10 +443,6 @@ public class HTMLFileStore implements DMDFileStore
     return out;	
   }
 
-  //---------------------------------------------------------------
-  /**
-   * Get MIME type
-   */
   public String getMIMEType()
   {
     return "text/html";

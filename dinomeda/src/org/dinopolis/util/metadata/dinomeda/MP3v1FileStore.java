@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1FileStore.java,v 1.3 2003/03/03 23:17:33 krake Exp $
+// $Id: MP3v1FileStore.java,v 1.4 2003/03/05 09:03:52 osma Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002
 //
@@ -29,36 +29,15 @@ import java.util.ArrayList;
 import org.dinopolis.util.metadata.*;
 
 /**
- * @author Mattias Welponer <maba@sbox.tugraz.at>
+ * @author Mattias Welponer <maba@sbox.tugraz.at> * @author Martin Oswald <ossi1@sbox.tugraz.at>
  * @version 0.5.0
- *
- * Class or interface description (mandatory)
+ *//**
+ * Store working with MP3 files
  */
 
 public class MP3v1FileStore implements DMDFileStore
 {
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public MP3v1FileStore()
-  {
-  }
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public MP3v1FileStore(String filename) throws FileNotFoundException 
-  {
-    setFileName(filename);
-  }
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int getIOMode()
   {
     if (file_ == null || !file_.exists())
@@ -80,10 +59,7 @@ public class MP3v1FileStore implements DMDFileStore
     return mode;
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  
   public int read() throws IOException 
   {
     int count = 0;
@@ -122,19 +98,13 @@ public class MP3v1FileStore implements DMDFileStore
     return count;
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  
   public int read(String item) throws IOException 
   {
     return read(createJobList(item)); 
   }  
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  
   public int read(DMDJobList joblist)  throws IOException 
   {
     joblist_.add(joblist);
@@ -176,10 +146,7 @@ public class MP3v1FileStore implements DMDFileStore
   }  
   
    
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  
   public int update() throws IOException
   {
     int count = 0;
@@ -212,20 +179,14 @@ public class MP3v1FileStore implements DMDFileStore
     return count;
   }
 
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  
   public int update(String item) throws IOException
   {
     return update(createJobList(item)); 
   }
 
 
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  
   public int update(DMDJobList joblist) throws IOException
   {
     int count=0;
@@ -257,10 +218,7 @@ public class MP3v1FileStore implements DMDFileStore
   }
 
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  
   public int write() throws IOException 
   {  
     int count=0;
@@ -301,22 +259,12 @@ public class MP3v1FileStore implements DMDFileStore
     return count;
   }
   
-
-  
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int write(String item) throws IOException 
   {
     return write(createJobList(item));
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  
   public int write(DMDJobList joblist) throws IOException 
   {
     joblist_.add(joblist);
@@ -365,20 +313,13 @@ public class MP3v1FileStore implements DMDFileStore
     return count;
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  
   public String getMIMEType()
   {
     return "audio/x-mp3";
   }
 
    
-  //---------------------------------------------------------------
-  /**
-  * Method description
-  */
   public DMDNode getElement(String path)
   {
     DMDNode node = new DMDNode();
@@ -421,10 +362,6 @@ public class MP3v1FileStore implements DMDFileStore
     return new DMDNode();
   }
   
-  //---------------------------------------------------------------
-  /**
-  * Method description
-  */
   public void setElement(DMDNode node)
   {
     String item = node.getPath() + node.getName();
@@ -447,28 +384,21 @@ public class MP3v1FileStore implements DMDFileStore
     
     if (node.getNodeType() == node.NUMBER_NODE)
     {
-      Number number;
-      if (node.isNull())
-      {
-        System.err.println("isNull = true");
-        number = new Integer(-1);
+      Number number;      if (node.isNull())
+      {        number = new Integer(-1);
+
       }
       else
       {
         number = ((DMDNumberNode)node).get();
-      }
-      System.err.println("setTag: " + item + " " + number);
-      setTag(item, number);
+      }      setTag(item, number);
+
       joblist_.add(new DMDJobListItem(item));
       joblist_.itemModified(item);
     }
     
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public DMDNodeIterator get(String item) 
   {
     ArrayList nodelist = new ArrayList();
@@ -485,10 +415,6 @@ public class MP3v1FileStore implements DMDFileStore
     return new DMDNodeIterator(nodelist.iterator());
   }
 
-  //---------------------------------------------------------------
-  /**
-  * Method description
-  */
   public void set(DMDNodeIterator iterator)
   {
     while (iterator.hasNext())
@@ -497,37 +423,25 @@ public class MP3v1FileStore implements DMDFileStore
     }
   }
  
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public File getFile()
   {
     return file_;
   }
 
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public void setFile(File file) 
   {
     file_ = file;
   }
 
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public void setFileName(String filename) throws FileNotFoundException 
   {
     file_ = new File(filename);
   }
   
-  //---------------------------------------------------------------
   /**
-   * Method description
+   * Creates a joblist for the store from a string item.
+   * @param item name or path of the medafields ("/" means all fields)
+   * @return a DMDJobList for the store
    */
   private DMDJobList createJobList(String item)
   {

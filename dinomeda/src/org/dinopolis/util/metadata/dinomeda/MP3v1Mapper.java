@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1Mapper.java,v 1.2 2003/03/03 15:05:16 osma Exp $
+// $Id: MP3v1Mapper.java,v 1.3 2003/03/05 09:03:52 osma Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -32,10 +32,10 @@ import java.net.URL;
 import org.dinopolis.util.metadata.*;
 
 /**
- * @author Martin Oswald <ossi1@sbox.tugraz.at> (mandatory)
- * @version 0.2.1 (mandatory)
- *
- * Class or interface description (mandatory)
+ * @author Martin Oswald <ossi1@sbox.tugraz.at>
+ * @version 0.2.1
+ *//**
+ * Dinomeda mapper for MP3 tags
  */
 
 public class MP3v1Mapper extends DinomedaMapper
@@ -90,7 +90,11 @@ public class MP3v1Mapper extends DinomedaMapper
     return store_.getMIMEType();
   }
   
-  private DMDJobList createJobList(String item)
+  /**
+   * Creates a joblist for the mappers store from a string item.
+   * @param item name or path of the medafields ("/" means all mapable fields)
+   * @return a DMDJobList for the mappers store
+   */  private DMDJobList createJobList(String item)
   {
     DMDJobList joblist = new DMDJobList();
     boolean all = false;
@@ -106,7 +110,11 @@ public class MP3v1Mapper extends DinomedaMapper
   }
   
   
-  private DMDJobList mapJobList(DMDJobList joblist)
+  /**
+   * Maps a joblist to a joblist for the mappers store.
+   * @param joblist list of jobs for the mapper
+   * @return a DMDJobList for the mappers store 
+   */  private DMDJobList mapJobList(DMDJobList joblist)
   {
   
     DMDJobList storejoblist = new DMDJobList();
@@ -378,7 +386,7 @@ public class MP3v1Mapper extends DinomedaMapper
     if (type.length > maxTypeCount) throw new ArrayIndexOutOfBoundsException();
     if (type.length == 0)
     {
-      store_.setElement(new DMDNumberNode("/","genre"));
+      store_.setElement(new DMDNumberNode("/","genre",null));
     }
     else
     {

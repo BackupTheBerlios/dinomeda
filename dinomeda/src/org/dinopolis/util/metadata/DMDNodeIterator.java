@@ -1,16 +1,16 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDNodeIterator.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id:
 //
-// Copyright: Author <email>, year
+// Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
 ///////////////////////////////////////////////////////////////////////////////
-//                                                                          
+//                    
 //   This program is free software; you can redistribute it and/or modify  
-//   it under the terms of the GNU Lesser General Public License as        
-//   published by the Free Software Foundation; either version 2 of the    
-//   License, or (at your option) any later version.                       
-//                                                                         
+//   it under the terms of the GNU Lesser General Public License as  
+//   published by the Free Software Foundation; either version 2 of the  
+//   License, or (at your option) any later version.       
+//                   
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -24,38 +24,49 @@ import java.util.*;
 // local packages
 
 /**
- * @author Author <email> (mandatory)
- * @version major.minor.patch (mandatory)
- *
- * Class or interface description (mandatory)
+ * @author Martin Oswald <ossi1@sbox.tugraz.at>
+ * @version 0.1.0
+ *//**
+ * Iterator for DMDNodes
  */
 
 public class DMDNodeIterator implements java.util.Iterator
 {
-    public DMDNodeIterator(Iterator iterator)
-    {
-        iterator_ = iterator;
-    }
-    
-    public DMDNode nextNode()
-    {
-        return (DMDNode)iterator_.next();
-    }
+  /** 
+   * Constructs a DMDNodeIterator
+   * @param iterator iterator of DMDNodes
+   */  public DMDNodeIterator(Iterator iterator)
+  {
+    iterator_ = iterator;
+  }
+  
+  /** 
+   * Returns the next DMDNode in the iteration
+   */  public DMDNode nextNode()
+  {
+    return (DMDNode)iterator_.next();
+  }
  
-    public void remove()
-    {
-        iterator_.remove();
-    }
-    
-    public boolean hasNext()
-    {
-        return iterator_.hasNext();
-    }
-    
-    public Object next()
-    {
-        return iterator_.next();
-    }
-    
-    protected Iterator iterator_; 
+  /** 
+   * Removes the current DMDNode in the iteration
+   */  public void remove()
+  {
+    iterator_.remove();
+  }
+    /**
+   * Returns true if the iteration has more elements.
+   */  
+  public boolean hasNext()
+  {
+    return iterator_.hasNext();
+  }
+  
+  /** 
+   * Returns the next DMDNode in the iteration
+   */  public Object next()
+  {
+    return iterator_.next();
+  }
+  
+  protected Iterator iterator_; 
 }

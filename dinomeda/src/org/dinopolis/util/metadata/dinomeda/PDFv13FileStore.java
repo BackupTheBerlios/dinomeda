@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13FileStore.java,v 1.2 2003/03/03 15:05:16 osma Exp $
+// $Id: PDFv13FileStore.java,v 1.3 2003/03/05 09:03:52 osma Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -31,34 +31,13 @@ import org.dinopolis.util.metadata.*;
 /**
  * @author Martin Oswald <oss1@sbox.tugraz.at>
  * @version 0.2.1
- *
- * Class or interface description (mandatory)
+ *//**
+ * Store working with metadata in PDF files
  */
 
 public class PDFv13FileStore implements DMDFileStore
 {
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public PDFv13FileStore()
-  {
-  }
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public PDFv13FileStore(String filename) throws FileNotFoundException 
-  {
-    setFileName(filename);
-  }
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int getIOMode()
   {
     if (file_ == null || !file_.exists())
@@ -80,10 +59,6 @@ public class PDFv13FileStore implements DMDFileStore
     return mode;
   }
  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int read() throws IOException 
   {
     int count = 0;
@@ -116,19 +91,11 @@ public class PDFv13FileStore implements DMDFileStore
     return count;  
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int read(String item) throws IOException 
   {
     return read(createJobList(item)); 
   }  
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int read(DMDJobList joblist)  throws IOException 
   {
     joblist_.add(joblist);
@@ -163,11 +130,6 @@ public class PDFv13FileStore implements DMDFileStore
     return count;  
   }  
   
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int update() throws IOException
   {
     int count = 0;
@@ -200,21 +162,11 @@ public class PDFv13FileStore implements DMDFileStore
     return count;
   }
 
-
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int update(String item) throws IOException
   {
     return update(createJobList(item)); 
   }
 
-
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int update(DMDJobList joblist) throws IOException
   {
     int count = 0;
@@ -247,11 +199,6 @@ public class PDFv13FileStore implements DMDFileStore
     return count;
   }
 
-
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int write() throws IOException 
   {  
     
@@ -296,19 +243,11 @@ public class PDFv13FileStore implements DMDFileStore
     return count;
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int write(String item) throws IOException 
   {
     return write(createJobList(item));
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public int write(DMDJobList joblist) throws IOException 
   {
     joblist_.add(joblist);
@@ -353,22 +292,11 @@ public class PDFv13FileStore implements DMDFileStore
     return count;
   }
   
-   //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public String getMIMEType()
   {
     return "application-pdf";
   }
   
-  
-  
-
-  //---------------------------------------------------------------
-  /**
-  * Method description
-  */
   public DMDNode getElement(String path)
   {
     DMDNode node = new DMDNode();        if (joblist_.contains(path))
@@ -388,10 +316,6 @@ public class PDFv13FileStore implements DMDFileStore
         return new DMDNode();      }      else      {        return node;      }    }        return new DMDNode();
   }
   
-  //---------------------------------------------------------------
-  /**
-  * Method description
-  */
   public void setElement(DMDNode node)
   {
     String item = node.getPath() + node.getName();
@@ -418,12 +342,6 @@ public class PDFv13FileStore implements DMDFileStore
     joblist_.itemModified(item);
   }
   
-
-
-  //---------------------------------------------------------------
-  /**
-  * Method description
-  */
   public DMDNodeIterator get(String item) 
   {
     ArrayList nodelist = new ArrayList();
@@ -441,12 +359,6 @@ public class PDFv13FileStore implements DMDFileStore
     return new DMDNodeIterator(nodelist.iterator());
   }  
     
-
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public void set(DMDNodeIterator iterator)
   {
     while (iterator.hasNext())
@@ -455,32 +367,17 @@ public class PDFv13FileStore implements DMDFileStore
     }
   }
   
-  
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public File getFile()
   {
     return file_;
   }
 
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public void setFile(File file) 
   {
     file_ = file;
     
     
-  }
-
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
+  }  
   public void setFileName(String filename) throws FileNotFoundException 
   {
     file_ = new File(filename);

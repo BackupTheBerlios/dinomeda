@@ -1,16 +1,18 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDStreamStore.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id:
 //
-// Copyright: Author <email>, year
+// Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
+// Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2002-2003
+// Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002-2003
 //
 ///////////////////////////////////////////////////////////////////////////////
-//                                                                          
-//   This program is free software; you can redistribute it and/or modify  
-//   it under the terms of the GNU Lesser General Public License as        
-//   published by the Free Software Foundation; either version 2 of the    
-//   License, or (at your option) any later version.                       
-//                                                                         
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU Lesser General Public License as
+//   published by the Free Software Foundation; either version 2 of the
+//   License, or (at your option) any later version.
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -25,35 +27,44 @@ import java.io.OutputStream;
 // local packages
 
 /**
- * @author Author <email> (mandatory)
- * @version major.minor.patch (mandatory)
- *
- * Class or interface description (mandatory)
+ * @author: Kevin Krammer <voyager@sbox.tugraz.at>
+ * @author: Martin Oswald <ossi1@sbox.tugraz.at>
+ * @author: Mattias Welponer <maba@sbox.tugraz.at>
+ * @version 0.1.0
+ */
+
+/**
+ * The base interface for all stream stores.
+ * It declares the basic stream operations.
  */
 
 public interface DMDStreamStore extends DMDStore
 {
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Returns the inputstream which contains the original metadata
+   * @return the inputstream which contains the original metadata
    */
   public InputStream getInputStream();
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Sets the inputstream which contains the original metadata
+   * @param stream which contains the original metadata
    */
   public void setInputStream(InputStream stream);
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Returns the outputstream which contains the modified metadata
+   * @return the outputstream which contains the modified metadata
    */
   public OutputStream getOutputStream();
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Sets the outstream which contains the modified metadata
+   * @param stream which contains the modified metadata
    */
   public void setOutputStream(OutputStream stream);
 }

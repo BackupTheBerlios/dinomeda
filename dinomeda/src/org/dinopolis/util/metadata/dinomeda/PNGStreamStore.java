@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PNGStreamStore.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: PNGStreamStore.java,v 1.2 2003/03/05 09:03:52 osma Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -38,62 +38,43 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *
+ *//**
  * The PNGStreamStore 
  */
 
 public class PNGStreamStore implements DMDStreamStore
 {
     
-  //---------------------------------------------------------------
-  /**
-   * Constructs a PNGStreamStore object
-   */
-  public PNGStreamStore()
-  {
-  }
-
-  //---------------------------------------------------------------
-  /**
-   * Get input stream
-   */
+ //---------------------------------------------------------------
+ 
   public InputStream getInputStream()
   {
     return input_;
   }
 
   //---------------------------------------------------------------
-  /**
-   * Set input stream
-   */
+ 
   public void setInputStream(InputStream stream)
   {
     input_ = stream;
   }
 
   //---------------------------------------------------------------
-  /**
-   * Get output stream
-   */
+  
   public OutputStream getOutputStream()
   {
     return output_;
   }
 
   //---------------------------------------------------------------
-  /**
-   * Set output stream
-   */
+  
   public void setOutputStream(OutputStream stream)
   {
     output_ = stream;
   }
-  
+    
   //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public int getIOMode()
+      public int getIOMode()
   {
     int mode = NO_IO;
     
@@ -106,9 +87,7 @@ public class PNGStreamStore implements DMDStreamStore
   }
     
   //---------------------------------------------------------------
-  /**
-   * Read metadata form the PNG stream.
-   */
+  
   public int read(DMDJobList joblist)  throws IOException 
   {
     int count = 0;
@@ -141,9 +120,7 @@ public class PNGStreamStore implements DMDStreamStore
   }  
 
   //---------------------------------------------------------------    
-  /**
-   * Read metadata form the PNG stream.
-   */
+  
   public int read(String item) throws IOException 
   {
     DMDJobList joblist = new DMDJobList();
@@ -152,9 +129,7 @@ public class PNGStreamStore implements DMDStreamStore
   }  
   
   //---------------------------------------------------------------  
-  /**
-   * Read metadata form the PNG stream.
-   */
+  
   public int read() throws IOException 
   {
     return read(joblist_);
@@ -162,30 +137,21 @@ public class PNGStreamStore implements DMDStreamStore
 
   
   //---------------------------------------------------------------  
-  /**
-   * Write metadata to PNG stream.
-   * not implemented
-   */
+  
   public int write(String item) throws IOException 
   {
     throw new IOException();
   }
   
   //---------------------------------------------------------------  
-  /**
-   * Write metadata to PNG stream.
-   * not implemented
-   */  
+  
   public int write(DMDJobList joblist) throws IOException 
   {
     throw new IOException();
   }
   
   //---------------------------------------------------------------  
-  /**
-   * Write metadata to PNG stream.
-   * not implemented
-   */
+  
   public int write() throws IOException 
   { 
     throw new IOException(); 
@@ -193,30 +159,21 @@ public class PNGStreamStore implements DMDStreamStore
 
   
   //---------------------------------------------------------------  
-  /**
-   * Update metadata in PNG stream.
-   * not implemented
-   */
+  
   public int update(String item) throws IOException
   {
     throw new IOException();
   }
   
   //---------------------------------------------------------------  
-  /**
-   * Update metadata in PNG stream.
-   * not implemented
-   */
+  
   public int update(DMDJobList joblist) throws IOException
   {
     throw new IOException();
   }
 
   //---------------------------------------------------------------  
-  /**
-   * Update metadata in PNG stream.
-   * not implemented
-   */
+  
   public int update() throws IOException
   {
     throw new IOException();
@@ -224,9 +181,7 @@ public class PNGStreamStore implements DMDStreamStore
 
 
   //---------------------------------------------------------------
-  /**
-  * Set element
-  */
+  
   public void setElement(DMDNode node)
   {
     String item = node.getPath() + node.getName();
@@ -237,9 +192,7 @@ public class PNGStreamStore implements DMDStreamStore
   }
   
   //---------------------------------------------------------------
-  /**
-  * Set elements
-  */
+  
   public void set(DMDNodeIterator iterator)
   {
     while (iterator.hasNext())
@@ -254,10 +207,7 @@ public class PNGStreamStore implements DMDStreamStore
   }
 
   //---------------------------------------------------------------
-  /**
-  * Get first element
-	* ok!
-  */
+  
   public DMDNode getElement(String path)
   {
     for (int i=0; i<dmdlist_.size(); i++)
@@ -273,9 +223,7 @@ public class PNGStreamStore implements DMDStreamStore
 
   
   //---------------------------------------------------------------
-  /**
-   * Get elements
-   */
+  
   public DMDNodeIterator get(String item) 
   {
     Vector list = new Vector();
@@ -295,9 +243,7 @@ public class PNGStreamStore implements DMDStreamStore
   }
   
   //---------------------------------------------------------------
-  /**
-   * toString
-   */
+  
   public String toString()
   {
     String out = new String();
@@ -308,17 +254,12 @@ public class PNGStreamStore implements DMDStreamStore
     return out;	
   }
   
-  //---------------------------------------------------------------
-  /**
-   * Get MIME type
-   */
+  //---------------------------------------------------------------  
   public String getMIMEType()
   {
     return "image/png";
   }
  
-
-  
   //---------------------------------------------------------------
   /**
    * Delete DMDNodes from an Vector

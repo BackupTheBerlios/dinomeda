@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLMapper.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: HTMLMapper.java,v 1.2 2003/03/05 09:03:52 osma Exp $
 //
-// Copyright: Mattias Welponer <mattias@welponer.net>, year
+// Copyright: Mattias Welponer <mattias@welponer.net>, 2003
 //
 ///////////////////////////////////////////////////////////////////////////////
 //                                      
@@ -31,10 +31,10 @@ import org.dinopolis.util.metadata.DMDStore;
 import org.dinopolis.util.metadata.*;
 
 /**
- * @author Author <email> (mandatory)
- * @version major.minor.patch (mandatory)
- *
- * Class or interface description (mandatory)
+ * @author Mattias Welponer <mattias@welponer.net>
+ * @version 0.1.0
+ *//**
+ * Dinomeda mapper for metadata in HTML files
  */
 
 public class HTMLMapper extends DinomedaMapper
