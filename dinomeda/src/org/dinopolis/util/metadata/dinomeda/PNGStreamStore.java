@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PNGStreamStore.java,v 1.4 2003/05/06 16:46:27 krake Exp $
+// $Id: PNGStreamStore.java,v 1.5 2003/05/06 16:47:50 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -38,7 +38,7 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
- * @version 0.1.0
+ * @version 0.2.0
  */
 
 /**

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1FileStore.java,v 1.6 2003/05/06 16:46:27 krake Exp $
+// $Id: MP3v1FileStore.java,v 1.7 2003/05/06 16:47:50 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002
 //
@@ -32,7 +32,7 @@ import org.dinopolis.util.metadata.*;
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
  * @author Martin Oswald <ossi1@sbox.tugraz.at>
- * @version 0.5.0
+ * @version 0.6.0
  */
 
 /**

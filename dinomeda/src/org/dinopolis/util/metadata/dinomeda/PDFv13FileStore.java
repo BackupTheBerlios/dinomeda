@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13FileStore.java,v 1.6 2003/05/06 16:46:27 krake Exp $
+// $Id: PDFv13FileStore.java,v 1.7 2003/05/06 16:47:50 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -31,7 +31,7 @@ import org.dinopolis.util.metadata.*;
 
 /**
  * @author Martin Oswald <oss1@sbox.tugraz.at>
- * @version 0.2.1
+ * @version 0.3.0
  */
 
 /**
