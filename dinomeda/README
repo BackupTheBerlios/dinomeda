@@ -1,0 +1,82 @@
+The Dinomeda Project
+
+Dinomeda is an acronym for Dinopolis Metadata and is based on a university
+project initiated by the IICM (www.iicm.edu) institute of Graz University of Technology,
+Graz, Austria.
+The project aims at providing a library of Java classes for working with
+metadata found in media files.
+
+The project files are organized in three packages:
+- org.dinopolis.util.metadata:
+  this package contains the interfaces and base classes of the library
+  All files within this package are licences under LGPL.
+  See LICENCE.LGPL for details
+
+- org.dinopolis.util.metadata.dinomeda:
+  this package contains the example plugin implementations
+  All files within this package are licences under LGPL.
+  See LICENCE.LGPL for details
+
+- demo
+  this package contains a demo application utilizing the library and the
+  plugins provided by the example implementation
+  All files within this package are licences under GPL.
+  See LICENCE.GPL for details
+
+########################
+Requirements:
+The library has no external requirements other than Java.
+
+The example implementation requires two additonal class libraries, both
+being included in the CVS package (both licenced under LGPL as well).
+
+The demo application requires a Java2 implementation due to its SWING GUI mode.
+It has be tested using a Blackdown JDK1.3.1 on Linux.
+
+The Makefile located in the project's top directory is only tested under Linux.
+It contains some references to Unix shell commands, such as rm, cd and mkdir.
+
+Building:
+Using the Makefile, building library, plugins and demo application is as simple
+as
+#> make
+
+Creating the javadoc API documentation can be done by using the Makefile target doc
+#> make doc
+
+To clean up, use the targets clean and doc-clean
+
+########################
+Running the demo app:
+
+The starter class is demo.Dinomeda.
+It understands some commandline parameters:
+--help
+  this prints a help text and usage tips
+
+--swing
+  this runs the application in SWING GUI mode
+
+--cfg file
+  uses the specified file as the applications config
+
+--metagrep searchstring
+  searches the metadata fields of files on the commandline for the
+  specified searchstring.
+  When it finds a match it writes the filename, the field name and
+  fieldvalue to Sytem.out
+  Works ONLY in Console mode.
+
+The packages top directory contains two SH shellscripts, specifying the most
+common parameters.
+
+rundemo.sh:
+provides the --cfg option pointing to the file src/demo/dinomeda.cfg
+Use rundemo.sh with a list for files in Console mode or rundemo.sh --swing for
+GUI mode.
+
+metagrep.sh
+calls rundemo.sh and additionally specifies --metagrep
+The first parameter after metagrep.sh will be treated as the searchstring, all other
+parameters are treated as files.
+

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaTrader.java,v 1.2 2003/03/03 12:35:55 krake Exp $
+// $Id: DinomedaTrader.java,v 1.3 2003/03/03 23:17:33 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -39,7 +39,10 @@ import org.dinopolis.util.metadata.DMDNoSuchProviderException;
  */
  
 /**
- * This class is the Dinomeda project's implementation of a DMDTrader.
+ * This class is the Dinomeda project's implementation of a DMDTrader.<br>
+ * It implements all methods as required by the DMDTrader documentation.
+ * <p>
+ * The trader stores the configuration data in DMDServiceOffer objects.
  */
 public class DinomedaTrader implements DMDTrader
 {
@@ -359,7 +362,50 @@ public class DinomedaTrader implements DMDTrader
       throw new DMDNoSuchProviderException();
     }
 
-    //TODO: remove offers
+    provider_classes_.remove(provider_class_name);
+
+    List offers = new ArrayList();
+    Collection values;
+    Iterator iter;
+    values = stores_by_mime_.values();
+    iter = values.iterator();
+    while (iter.hasNext())
+    {
+      List list = (List) iter.next();
+      Iterator list_iter = list.iterator();
+      while (list_iter.hasNext())
+      {
+        DMDServiceOffer offer = (DMDServiceOffer) list_iter.next();
+        if (provider_class_name.equals(offer.getProviderClass()))
+        {
+          list_iter.remove();
+        }
+      }
+      if (list.isEmpty())
+      {
+        iter.remove();
+      }
+    }
+
+    values = mappers_by_mime_.values();
+    iter = values.iterator();
+    while (iter.hasNext())
+    {
+      List list = (List) iter.next();
+      Iterator list_iter = list.iterator();
+      while (list_iter.hasNext())
+      {
+        DMDServiceOffer offer = (DMDServiceOffer) list_iter.next();
+        if (provider_class_name.equals(offer.getProviderClass()))
+        {
+          list_iter.remove();
+        }
+      }
+      if (list.isEmpty())
+      {
+        iter.remove();
+      }
+    }
   }
 
   //---------------------------------------------------------------
