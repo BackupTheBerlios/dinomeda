@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaMainWindow.java,v 1.3 2003/03/02 19:59:08 krake Exp $
+// $Id: DinomedaMainWindow.java,v 1.4 2003/03/10 17:54:57 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -207,7 +207,12 @@ public class DinomedaMainWindow extends JFrame implements ActionListener, Change
       file_chooser_.setAccessory(file_option_panel_);
       file_chooser_.addPropertyChangeListener(file_option_panel_);      
     }
-    
+    else
+    {
+      // clear selection
+      file_chooser_.setSelectedFile(null);
+    }
+
     if (file_chooser_.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
     {
       if (gui_module_ != null)
