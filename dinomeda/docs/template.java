@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: template.java,v 1.1 2003/02/27 21:56:11 krake Exp $
+// $Id: template.java,v 1.2 2003/03/10 17:57:59 krake Exp $
 //
 // Copyright: Author <email>, year
 //
@@ -25,7 +25,9 @@ package org.dinopolis.utils.metadata;
 /**
  * @author Author <email> (mandatory)
  * @version major.minor.patch (mandatory)
- *
+ */
+
+/**
  * Class or interface description (mandatory)
  */
 
