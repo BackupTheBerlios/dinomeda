@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLStreamStore.java,v 1.4 2003/03/16 17:36:40 mwelp Exp $
+// $Id: HTMLStreamStore.java,v 1.5 2003/03/27 14:14:19 mwelp Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -28,9 +28,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 // external packages
-import com.stevesoft.pat.Regex;
 
 // local packages
 import org.dinopolis.util.metadata.DMDStreamStore;
@@ -42,7 +43,7 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
- * @version 0.1.1
+ * @version 0.2.0
  */
 
 /**
@@ -105,6 +106,7 @@ public class HTMLStreamStore implements DMDStreamStore
   {
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
+    Matcher matcher;
 
     // remove all DMDNodes
     deleteDMDNodes(joblist, metalist_);
@@ -113,11 +115,12 @@ public class HTMLStreamStore implements DMDStreamStore
     BufferedReader reader = new BufferedReader(sr);
 
     String s = reader.readLine();
-    while(s != null && !regex_stop_.search(s)) {
+    matcher = regex_stop_.matcher(s);
+    while(s != null && !matcher.matches()) {
       // search line for the title element
-      if (regex_title_.search(s))
+      if (matcher.matches())
       {
-        String title = regex_title_.stringMatched(1);
+        String title = matcher.group(1);
         if (all || joblist.contains("/title")) 
         {
           setElement(new DMDTextNode("/", "title", title));
@@ -126,10 +129,11 @@ public class HTMLStreamStore implements DMDStreamStore
         }
       }
       // search line for a meta element
-      if (regex_meta_.search(s))
+      matcher = regex_meta_.matcher(s);
+      if (matcher.matches())
       {
-        String name = regex_meta_.stringMatched(1).toLowerCase();
-        String content = regex_meta_.stringMatched(2);
+        String name = matcher.group(1).toLowerCase();
+        String content = matcher.group(2);
         if(all || joblist.contains("/" + name )) 
         {
           setElement(new DMDTextNode("/", name, content));
@@ -138,6 +142,7 @@ public class HTMLStreamStore implements DMDStreamStore
         }
       }
       s = reader.readLine();
+      matcher = regex_stop_.matcher(s);
     }
 
     reader.close();
@@ -163,6 +168,7 @@ public class HTMLStreamStore implements DMDStreamStore
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
     Vector tmp = new Vector(5, 5);
+    Matcher matcher;
 
     // extern and intern joblist elements
     joblist.add(joblist_);
@@ -173,9 +179,12 @@ public class HTMLStreamStore implements DMDStreamStore
     PrintWriter writer = new PrintWriter(sw);
     
     String s = reader.readLine();
-    // replace all existing metatags 
-    while(s != null && !regex_stop_.search(s)) {
-      if (regex_title_.search(s))
+    // replace all existing metatags
+    matcher = regex_stop_.matcher(s);
+    while(s != null && !matcher.matches())
+    {
+      matcher = regex_title_.matcher(s);
+      if (matcher.matches())
       {
         // search line for the title element
         if (all || joblist.contains("/title")) 
@@ -183,32 +192,35 @@ public class HTMLStreamStore implements DMDStreamStore
           DMDTextNode node = (DMDTextNode)firstDMDNode("/title", metalist_, tmp);
           if(node != null)
           {
-            regex_title_.setReplaceRule("<title>" + node.get() + "</title>");
-            writer.println(regex_title_.replaceFirst(s));        
+            writer.println(matcher.replaceFirst("<title>" + node.get() + "</title>"));
           }
           count++;
         }
       }  
       // search line for a meta element
-      else if (regex_meta_.search(s))
+      else
       {
-        String name = regex_meta_.stringMatched(1).toLowerCase();
-        if(all || joblist.contains("/" + name )) 
+        matcher = regex_stop_.matcher(s);
+        if (matcher.matches())
         {
-          DMDTextNode node = (DMDTextNode)firstDMDNode("/" + name, metalist_, tmp);
-          if(node != null) {
-            regex_title_.setReplaceRule("<meta name=\"" + name + "\" content=\"" + node.get() + "\">");
-            writer.println(regex_title_.replaceFirst(s));
+          String name = matcher.group(1).toLowerCase();
+          if(all || joblist.contains("/" + name ))
+          {
+            DMDTextNode node = (DMDTextNode)firstDMDNode("/" + name, metalist_, tmp);
+            if(node != null) {
+              writer.println(matcher.replaceFirst("<meta name=\"" + name + "\" content=\"" + node.get() + "\">"));
+            }
+            count++;
           }
-          count++;
+        }
+        else
+        // found no metatag
+        {
+          writer.println(s);
         }
       }
-      else
-      // found no metatag
-      {
-        writer.println(s);
-      }
       s = reader.readLine();
+      matcher = regex_stop_.matcher(s);
     }
     
     // append metatags to the header
@@ -274,7 +286,8 @@ public class HTMLStreamStore implements DMDStreamStore
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
     Vector tmp = new Vector(5, 5);
-    
+    Matcher matcher;
+
     // extern and intern joblist elements
     joblist.add(joblist_);
     
@@ -284,38 +297,44 @@ public class HTMLStreamStore implements DMDStreamStore
     PrintWriter writer = new PrintWriter(sw);    
 
     String s = reader.readLine();
-    while(s != null && !regex_stop_.search(s)) {
+    matcher = regex_stop_.matcher(s);
+    while(s != null && !matcher.matches())
+    {
       // search line for the title element
-      if (regex_title_.search(s))
+      matcher = regex_title_.matcher(s);
+      if (matcher.matches())
       {
         if (all || joblist.contains("/title")) 
         {
           DMDTextNode node = (DMDTextNode)firstDMDNode("/title", metalist_, tmp);
           if(node != null)
           {
-            regex_title_.setReplaceRule("<title>" + node.get() + "</title>");
-            s = regex_title_.replaceFirst(s);
+            s = matcher.replaceFirst("<title>" + node.get() + "</title>");
           }
           count++;
         }
-      }  
+      }
       // search line for a meta element
-      else if (regex_meta_.search(s))
+      else
       {
-        String name = regex_meta_.stringMatched(1).toLowerCase();
-        if(all || joblist.contains("/" + name )) 
+        matcher = regex_meta_.matcher(s);
+        if (matcher.matches())
         {
-          DMDTextNode node = (DMDTextNode)firstDMDNode("/" + name, metalist_, tmp);
-          if(node != null)
+          String name = matcher.group(1).toLowerCase();
+          if(all || joblist.contains("/" + name ))
           {
-            regex_title_.setReplaceRule("<meta name=\"" + name + "\" content=\"" + node.get() + "\">");
-            s = regex_title_.replaceFirst(s);
+            DMDTextNode node = (DMDTextNode)firstDMDNode("/" + name, metalist_, tmp);
+            if(node != null)
+            {
+              s = matcher.replaceFirst("<meta name=\"" + name + "\" content=\"" + node.get() + "\">");
+            }
+            count++;
           }
-          count++;			  
         }
       }
       writer.println(s);
       s = reader.readLine();
+      matcher = regex_stop_.matcher(s);
     }
 
     DMDTextNode node = (DMDTextNode)firstDMDNode("/", metalist_, tmp);
@@ -517,11 +536,10 @@ public class HTMLStreamStore implements DMDStreamStore
   }
 
   
-  protected Regex regex_title_ = new Regex("<title>(.*)</title>");		
-  protected Regex regex_meta_ = new Regex("<meta.*name=\"(.*?)\".*content=\"(.*?)\">");								
-  protected Regex regex_start_ = new Regex("<head>");
-  protected Regex regex_stop_ = new Regex("</head>");
-
+  protected Pattern regex_title_ = Pattern.compile(".*<title>(.*)</title>");
+  protected Pattern regex_meta_ = Pattern.compile(".*<meta.*name=\"(.*?)\".*content=\"(.*?)\">");
+  protected Pattern regex_start_ = Pattern.compile(".*<head>");
+  protected Pattern regex_stop_ = Pattern.compile(".*</head>");
   
   protected InputStream input_ = null;  
   protected OutputStream output_ = null;  

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLFileStore.java,v 1.6 2003/03/16 17:36:40 mwelp Exp $
+// $Id: HTMLFileStore.java,v 1.7 2003/03/27 14:14:48 mwelp Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -26,9 +26,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 // external packages
-import com.stevesoft.pat.Regex;
+
 
 // local packages
 import org.dinopolis.util.metadata.DMDFileStore;
@@ -40,7 +42,7 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
- * @version 0.1.1
+ * @version 0.2.0
  */
 
 /**
@@ -90,25 +92,29 @@ public class HTMLFileStore implements DMDFileStore
     }
     return mode;
   }
-  
-  public int read(DMDJobList joblist) throws IOException 
+
+  public int read(DMDJobList joblist) throws IOException
   {
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
+    Matcher matcher;
 
     // remove all DMDNodes
     deleteDMDNodes(joblist, metalist_);
-    
+
     FileReader fr = new FileReader(file_);
     BufferedReader reader = new BufferedReader(fr);
 
     String s = reader.readLine();
-    while(s != null && !regex_stop_.search(s)) {
+    matcher = regex_stop_.matcher(s);
+    while(s != null && !matcher.matches())
+    {
       // search line for the title element
-      if (regex_title_.search(s))
+      matcher = regex_title_.matcher(s);
+      if (matcher.matches())
       {
-        String title = regex_title_.stringMatched(1);
-        if (all || joblist.contains("/title")) 
+        String title = matcher.group(1);
+        if (all || joblist.contains("/title"))
         {
           setElement(new DMDTextNode("/", "title", title));
           joblist_.add(new DMDJobListItem("/title").itemRead());
@@ -116,18 +122,20 @@ public class HTMLFileStore implements DMDFileStore
         }
       }
       // search line for a meta element
-      if (regex_meta_.search(s))
+      matcher = regex_meta_.matcher(s);
+      if (matcher.matches())
       {
-        String name = regex_meta_.stringMatched(1).toLowerCase();
-        String content = regex_meta_.stringMatched(2);
-        if(all || joblist.contains("/" + name )) 
+        String name = matcher.group(1).toLowerCase();
+        String content = matcher.group(2);
+        if(all || joblist.contains("/" + name ))
         {
           setElement(new DMDTextNode("/", name, content));
-          joblist_.add(new DMDJobListItem("/" + name).itemRead());							
-          count++;			  
+          joblist_.add(new DMDJobListItem("/" + name).itemRead());
+          count++;
         }
       }
       s = reader.readLine();
+      matcher = regex_stop_.matcher(s);
     }
 
     reader.close();
@@ -153,19 +161,23 @@ public class HTMLFileStore implements DMDFileStore
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
     Vector tmp = new Vector(5, 5);
+    Matcher matcher;
 
     // extern and intern joblist elements
     joblist.add(joblist_);
-    
+
     FileReader fr = new FileReader(file_);
     BufferedReader reader = new BufferedReader(fr);
-    
+
     StringBuffer buffer = new StringBuffer();
     
     String s = reader.readLine();
-    // replace all existing metatags 
-    while(s != null && !regex_stop_.search(s)) {
-      if (regex_title_.search(s))
+    // replace all existing metatags
+    matcher = regex_stop_.matcher(s);
+    while(s != null && !matcher.matches())
+    {
+      matcher = regex_title_.matcher(s);
+      if (matcher.matches())
       {
         // search line for the title element
         if (all || joblist.contains("/title")) 
@@ -173,37 +185,40 @@ public class HTMLFileStore implements DMDFileStore
           DMDTextNode node = (DMDTextNode)firstDMDNode("/title", metalist_, tmp);
           if(node != null)
           {
-            regex_title_.setReplaceRule("<title>" + node.get() + "</title>");
-            buffer.append(regex_title_.replaceFirst(s)); 
-            buffer.append("\n"); 
-          }
-          count++;
-        }
-      }  
-      // search line for a meta element
-      else if (regex_meta_.search(s))
-      {
-        String name = regex_meta_.stringMatched(1).toLowerCase();
-        if(all || joblist.contains("/" + name )) 
-        {
-          DMDTextNode node = (DMDTextNode)firstDMDNode("/" + name, metalist_, tmp);
-          if(node != null) {
-            regex_title_.setReplaceRule("<meta name=\"" + name + "\" content=\"" + node.get() + "\">");
-            buffer.append(regex_title_.replaceFirst(s));
+            buffer.append(matcher.replaceFirst("<title>" + node.get() + "</title>"));
             buffer.append("\n"); 
           }
           count++;
         }
       }
+      // search line for a meta element
       else
-      // found no metatag
       {
-        buffer.append(s);
-        buffer.append("\n"); 
+        matcher = regex_meta_.matcher(s);
+        if (matcher.matches())
+        {
+          String name = matcher.group(1).toLowerCase();
+          if(all || joblist.contains("/" + name ))
+          {
+            DMDTextNode node = (DMDTextNode)firstDMDNode("/" + name, metalist_, tmp);
+            if(node != null) {
+              buffer.append(matcher.replaceFirst("<meta name=\"" + name + "\" content=\"" + node.get() + "\">"));
+              buffer.append("\n");
+            }
+            count++;
+          }
+        }
+        else
+        // found no metatag
+        {
+          buffer.append(s);
+          buffer.append("\n");
+        }
       }
       s = reader.readLine();
+      matcher = regex_stop_.matcher(s);
     }
-    
+
     // append metatags to the header
     DMDTextNode node = (DMDTextNode)firstDMDNode("/", metalist_, tmp);
     while(node != null)
@@ -275,49 +290,56 @@ public class HTMLFileStore implements DMDFileStore
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
     Vector tmp = new Vector(5, 5);
-    
+    Matcher matcher;
+
     // extern and intern joblist elements
     joblist.add(joblist_);
 
     FileReader fr = new FileReader(file_);
     BufferedReader reader = new BufferedReader(fr);
-    
+
     StringBuffer buffer = new StringBuffer();
 
     String s = reader.readLine();
-    while(s != null && !regex_stop_.search(s)) {
+    matcher = regex_stop_.matcher(s);
+    while(s != null && !matcher.matches())
+    {
       // search line for the title element
-      if (regex_title_.search(s))
+      matcher = regex_title_.matcher(s);
+      if (matcher.matches())
       {
-        if (all || joblist.contains("/title")) 
+        if (all || joblist.contains("/title"))
         {
           DMDTextNode node = (DMDTextNode)firstDMDNode("/title", metalist_, tmp);
           if(node != null)
           {
-            regex_title_.setReplaceRule("<title>" + node.get() + "</title>");
-            s = regex_title_.replaceFirst(s);
+            s = matcher.replaceFirst("<title>" + node.get() + "</title>");
           }
           count++;
         }
-      }  
+      }
       // search line for a meta element
-      else if (regex_meta_.search(s))
+      else
       {
-        String name = regex_meta_.stringMatched(1).toLowerCase();
-        if(all || joblist.contains("/" + name )) 
+        matcher = regex_meta_.matcher(s);
+        if (matcher.matches())
         {
-          DMDTextNode node = (DMDTextNode)firstDMDNode("/" + name, metalist_, tmp);
-          if(node != null)
+          String name = matcher.group(1).toLowerCase();
+          if(all || joblist.contains("/" + name ))
           {
-            regex_title_.setReplaceRule("<meta name=\"" + name + "\" content=\"" + node.get() + "\">");
-            s = regex_title_.replaceFirst(s);
+            DMDTextNode node = (DMDTextNode)firstDMDNode("/" + name, metalist_, tmp);
+            if(node != null)
+            {
+              s = matcher.replaceFirst("<meta name=\"" + name + "\" content=\"" + node.get() + "\">");
+            }
+            count++;
           }
-          count++;			  
         }
       }
       buffer.append(s);
-      buffer.append("\n"); 
+      buffer.append("\n");
       s = reader.readLine();
+      matcher = regex_stop_.matcher(s);
     }
 
     DMDTextNode node = (DMDTextNode)firstDMDNode("/", metalist_, tmp);
@@ -369,7 +391,7 @@ public class HTMLFileStore implements DMDFileStore
     
     writer.close();
     fw.close();
-        
+
     return count;
   }
 
@@ -533,16 +555,15 @@ public class HTMLFileStore implements DMDFileStore
     return null;
   }
 
-  
-  protected Regex regex_title_ = new Regex("<title>(.*)</title>");		
-  protected Regex regex_meta_ = new Regex("<meta.*name=\"(.*?)\".*content=\"(.*?)\">");								
-  protected Regex regex_start_ = new Regex("<head>");
-  protected Regex regex_stop_ = new Regex("</head>");
- 
-  protected File file_ = null;  
+  protected Pattern regex_title_ = Pattern.compile(".*<title>(.*)</title>");
+  protected Pattern regex_meta_ = Pattern.compile(".*<meta.*name=\"(.*?)\".*content=\"(.*?)\">");
+  protected Pattern regex_start_ = Pattern.compile(".*<head>");
+  protected Pattern regex_stop_ = Pattern.compile(".*</head>");
+
+  protected File file_ = null;
   protected DMDJobList joblist_ = new DMDJobList();
   protected Vector metalist_ = new Vector(5, 5);
-  
+
 }
 
 
