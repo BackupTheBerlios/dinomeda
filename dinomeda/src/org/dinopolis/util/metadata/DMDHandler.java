@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDHandler.java,v 1.3 2003/03/10 17:54:30 krake Exp $
+// $Id: DMDHandler.java,v 1.4 2003/04/24 09:08:49 osma Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2002-2003
@@ -47,7 +47,7 @@ public interface DMDHandler
    * @return the amount of metadata that was read.
    * @throws IOException if the metadata cannot be accessed.
    */
-  public int read() throws IOException;
+  public int readMetaData() throws IOException;
 
   //---------------------------------------------------------------
   /**
@@ -56,7 +56,7 @@ public interface DMDHandler
    * @return the amount of metadata that was read.
    * @throws IOException if the metadata cannot be accessed.
    */
-  public int read(String path) throws IOException;
+  public int readMetaData(String path) throws IOException;
 
   //---------------------------------------------------------------
   /**
@@ -65,7 +65,7 @@ public interface DMDHandler
    * @return the amount of metadata that was read.
    * @throws IOException if the metadata cannot be accessed.
    */
-  public int read(DMDJobList joblist) throws IOException;
+  public int readMetaData(DMDJobList joblist) throws IOException;
 
   //---------------------------------------------------------------
   /**
@@ -73,7 +73,7 @@ public interface DMDHandler
    * @return the amount of metadata that was updated.
    * @throws IOException if the metadata cannot be accessed.
    */
-  public int update() throws IOException;
+  public int updateMetaData() throws IOException;
 
   //---------------------------------------------------------------
   /**
@@ -83,7 +83,7 @@ public interface DMDHandler
    * @return the amount of metadata that was updated.
    * @throws IOException if the metadata cannot be accessed.
    */
-  public int update(String path) throws IOException;
+  public int updateMetaData(String path) throws IOException;
 
   //---------------------------------------------------------------
   /**
@@ -93,7 +93,7 @@ public interface DMDHandler
    * @return the amount of metadata that was updated.
    * @throws IOException if the metadata cannot be accessed.
    */
-  public int update(DMDJobList joblist) throws IOException;
+  public int updateMetaData(DMDJobList joblist) throws IOException;
 
   //---------------------------------------------------------------
   /**
@@ -102,7 +102,7 @@ public interface DMDHandler
    * @return the amount of metadata that was written.
    * @throws IOException if the metadata cannot be accessed.
    */
-  public int write() throws IOException;
+  public int writeMetaData() throws IOException;
 
   //---------------------------------------------------------------
   /**
@@ -112,7 +112,7 @@ public interface DMDHandler
    * @return the amount of metadata that was written.
    * @throws IOException if the metadata cannot be accessed.
    */
-  public int write(String path) throws IOException;
+  public int writeMetaData(String path) throws IOException;
 
   //---------------------------------------------------------------
   /**
@@ -122,7 +122,7 @@ public interface DMDHandler
    * @return the amount of metadata that was written.
    * @throws IOException if the metadata cannot be accessed.
    */
-  public int write(DMDJobList joblist) throws IOException;
+  public int writeMetaData(DMDJobList joblist) throws IOException;
 
   //---------------------------------------------------------------
   /**

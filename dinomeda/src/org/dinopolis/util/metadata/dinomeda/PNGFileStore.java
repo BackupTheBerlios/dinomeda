@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PNGFileStore.java,v 1.2 2003/03/05 09:03:52 osma Exp $
+// $Id: PNGFileStore.java,v 1.3 2003/04/24 09:08:49 osma Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -80,7 +80,7 @@ public class PNGFileStore implements DMDFileStore
   
   //---------------------------------------------------------------
   
-  public int read(DMDJobList joblist)  throws IOException 
+  public int readMetaData(DMDJobList joblist)  throws IOException 
   {
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
@@ -111,50 +111,50 @@ public class PNGFileStore implements DMDFileStore
     return count;
   }  
 
-  public int read(String item) throws IOException 
+  public int readMetaData(String item) throws IOException 
   {
     DMDJobList joblist = new DMDJobList();
     joblist.add(new DMDJobListItem(item));
-    return read(joblist); 
+    return readMetaData(joblist); 
   }  
   
-  public int read() throws IOException 
+  public int readMetaData() throws IOException 
   {
-    return read(joblist_);
+    return readMetaData(joblist_);
   }
 
-  public int write(String item) throws IOException 
+  public int writeMetaData(String item) throws IOException 
   {
     throw new IOException();
   }
   
-  public int write(DMDJobList joblist) throws IOException 
+  public int writeMetaData(DMDJobList joblist) throws IOException 
   {
     throw new IOException();
   }
   
-  public int write() throws IOException 
+  public int writeMetaData() throws IOException 
   { 
     throw new IOException(); 
   }
 
   //---------------------------------------------------------------  
  
-  public int update(String item) throws IOException
+  public int updateMetaData(String item) throws IOException
   {
     throw new IOException();
   }
   
   //---------------------------------------------------------------  
   
-  public int update(DMDJobList joblist) throws IOException
+  public int updateMetaData(DMDJobList joblist) throws IOException
   {
     throw new IOException();
   }
 
   //---------------------------------------------------------------  
   
-  public int update() throws IOException
+  public int updateMetaData() throws IOException
   {
     throw new IOException();
   }

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaConsoleApplication.java,v 1.3 2003/03/02 19:59:08 krake Exp $
+// $Id: DinomedaConsoleApplication.java,v 1.4 2003/04/24 09:08:49 osma Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -118,7 +118,7 @@ public class DinomedaConsoleApplication extends DinomedaApplication
 
     try
     {
-      dinomeda_mapper.read("/");
+      dinomeda_mapper.readMetaData("/");
     }
     catch (IOException exception)
     {

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLStreamStore.java,v 1.5 2003/03/27 14:14:19 mwelp Exp $
+// $Id: HTMLStreamStore.java,v 1.6 2003/04/24 09:08:49 osma Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -102,7 +102,7 @@ public class HTMLStreamStore implements DMDStreamStore
     return mode;
   }
   
-  public int read(DMDJobList joblist) throws IOException 
+  public int readMetaData(DMDJobList joblist) throws IOException 
   {
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
@@ -151,19 +151,19 @@ public class HTMLStreamStore implements DMDStreamStore
     return count;
   }
 
-  public int read(String item) throws IOException 
+  public int readMetaData(String item) throws IOException 
   {
     DMDJobList joblist = new DMDJobList();
     joblist.add(new DMDJobListItem(item));
-    return read(joblist); 
+    return readMetaData(joblist); 
   }  
   
-  public int read()  throws IOException 
+  public int readMetaData()  throws IOException 
   {
-    return read(joblist_);
+    return readMetaData(joblist_);
   }    
   
-  public int write(DMDJobList joblist) throws IOException 
+  public int writeMetaData(DMDJobList joblist) throws IOException 
   {
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
@@ -269,19 +269,19 @@ public class HTMLStreamStore implements DMDStreamStore
     return count;
   }
 
-  public int write(String item) throws IOException 
+  public int writeMetaData(String item) throws IOException 
   {    
     DMDJobList joblist = new DMDJobList();
     joblist.add(new DMDJobListItem(item));
-    return write(joblist);
+    return writeMetaData(joblist);
   }
 
-  public int write() throws IOException 
+  public int writeMetaData() throws IOException 
   {    
-    return write(new DMDJobList());
+    return writeMetaData(new DMDJobList());
   }
 
-  public int update(DMDJobList joblist) throws IOException
+  public int updateMetaData(DMDJobList joblist) throws IOException
   {
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
@@ -382,16 +382,16 @@ public class HTMLStreamStore implements DMDStreamStore
     return count;
   }
 
-  public int update(String item) throws IOException
+  public int updateMetaData(String item) throws IOException
   {
     DMDJobList joblist = new DMDJobList();
     joblist.add(new DMDJobListItem(item));
-    return update(joblist);
+    return updateMetaData(joblist);
   }
 
-  public int update() throws IOException
+  public int updateMetaData() throws IOException
   {
-    return update(new DMDJobList());
+    return updateMetaData(new DMDJobList());
   }
 
   public void setElement(DMDNode node)

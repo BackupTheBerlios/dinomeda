@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaGUIModule.java,v 1.5 2003/03/03 13:57:47 krake Exp $
+// $Id: DinomedaGUIModule.java,v 1.6 2003/04/24 09:08:49 osma Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -150,7 +150,7 @@ public class DinomedaGUIModule implements GUIModule, IOActionListener
       try
       {
         main_panel_.dataToMapper();
-        mapper_.read(createJobList());
+        mapper_.readMetaData(createJobList());
         main_panel_.dataFromMapper();
       }
       catch (IOException exception)
@@ -172,7 +172,7 @@ public class DinomedaGUIModule implements GUIModule, IOActionListener
       try
       {
         main_panel_.dataToMapper();
-        mapper_.update(createJobList());
+        mapper_.updateMetaData(createJobList());
         main_panel_.dataFromMapper();
       }
       catch (IOException exception)
@@ -194,7 +194,7 @@ public class DinomedaGUIModule implements GUIModule, IOActionListener
       try
       {
         main_panel_.dataToMapper();
-        mapper_.write(createJobList());
+        mapper_.writeMetaData(createJobList());
         main_panel_.dataFromMapper();
       }
       catch (IOException exception)

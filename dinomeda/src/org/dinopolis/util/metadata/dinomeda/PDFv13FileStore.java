@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13FileStore.java,v 1.4 2003/03/18 17:04:18 krake Exp $
+// $Id: PDFv13FileStore.java,v 1.5 2003/04/24 09:08:49 osma Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -61,7 +61,7 @@ public class PDFv13FileStore implements DMDFileStore
     return mode;
   }
  
-  public int read() throws IOException 
+  public int readMetaData() throws IOException 
   {
     int count = 0;
     RandomAccessFile file = new RandomAccessFile(file_, "r");
@@ -93,12 +93,12 @@ public class PDFv13FileStore implements DMDFileStore
     return count;  
   }
   
-  public int read(String item) throws IOException 
+  public int readMetaData(String item) throws IOException 
   {
-    return read(createJobList(item)); 
+    return readMetaData(createJobList(item)); 
   }  
   
-  public int read(DMDJobList joblist)  throws IOException 
+  public int readMetaData(DMDJobList joblist)  throws IOException 
   {
     joblist_.add(joblist);
     
@@ -132,7 +132,7 @@ public class PDFv13FileStore implements DMDFileStore
     return count;  
   }  
   
-  public int update() throws IOException
+  public int updateMetaData() throws IOException
   {
     int count = 0;
 
@@ -164,12 +164,12 @@ public class PDFv13FileStore implements DMDFileStore
     return count;
   }
 
-  public int update(String item) throws IOException
+  public int updateMetaData(String item) throws IOException
   {
-    return update(createJobList(item)); 
+    return updateMetaData(createJobList(item)); 
   }
 
-  public int update(DMDJobList joblist) throws IOException
+  public int updateMetaData(DMDJobList joblist) throws IOException
   {
     int count = 0;
 
@@ -201,7 +201,7 @@ public class PDFv13FileStore implements DMDFileStore
     return count;
   }
 
-  public int write() throws IOException 
+  public int writeMetaData() throws IOException 
   {  
     
     int count=0;
@@ -245,12 +245,12 @@ public class PDFv13FileStore implements DMDFileStore
     return count;
   }
   
-  public int write(String item) throws IOException 
+  public int writeMetaData(String item) throws IOException 
   {
-    return write(createJobList(item));
+    return writeMetaData(createJobList(item));
   }
   
-  public int write(DMDJobList joblist) throws IOException 
+  public int writeMetaData(DMDJobList joblist) throws IOException 
   {
     joblist_.add(joblist);
     int count=0;

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLMapper.java,v 1.4 2003/03/16 17:36:40 mwelp Exp $
+// $Id: HTMLMapper.java,v 1.5 2003/04/24 09:08:49 osma Exp $
 //
 // Copyright: Mattias Welponer <mattias@welponer.net>, 2003
 //
@@ -42,49 +42,49 @@ import org.dinopolis.util.metadata.*;
 public class HTMLMapper extends DinomedaMapper
 {
  
-  public int read(String item) throws IOException
+  public int readMetaData(String item) throws IOException
   { 
-    return store_.read(createJobList(item));
+    return store_.readMetaData(createJobList(item));
   }
   
-  public int read(DMDJobList joblist) throws IOException
+  public int readMetaData(DMDJobList joblist) throws IOException
   {
-    return store_.read(mapJobList(joblist));
+    return store_.readMetaData(mapJobList(joblist));
   }
   
-  public int read() throws IOException
+  public int readMetaData() throws IOException
   {
-    return store_.read();
+    return store_.readMetaData();
   }
   
-  public int write() throws IOException
+  public int writeMetaData() throws IOException
   {  
-    return store_.write();
+    return store_.writeMetaData();
   }
   
-  public int write(String item) throws IOException
+  public int writeMetaData(String item) throws IOException
   {
-    return write(createJobList(item));
+    return writeMetaData(createJobList(item));
   }
   
-  public int write(DMDJobList joblist) throws IOException
+  public int writeMetaData(DMDJobList joblist) throws IOException
   {
-    return store_.write(mapJobList(joblist));
+    return store_.writeMetaData(mapJobList(joblist));
   }
   
-  public int update() throws IOException
+  public int updateMetaData() throws IOException
   {
-    return store_.update();
+    return store_.updateMetaData();
   }
   
-  public int update(String item) throws IOException
+  public int updateMetaData(String item) throws IOException
   {
-    return update(createJobList(item));
+    return updateMetaData(createJobList(item));
   }
   
-  public int update(DMDJobList joblist) throws IOException
+  public int updateMetaData(DMDJobList joblist) throws IOException
   {
-    return store_.update(mapJobList(joblist));
+    return store_.updateMetaData(mapJobList(joblist));
   }
   
   public String[] getTitle()
