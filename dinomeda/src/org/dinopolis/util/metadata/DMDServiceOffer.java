@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDServiceOffer.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DMDServiceOffer.java,v 1.2 2003/03/03 13:57:10 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2003
 //
@@ -120,31 +120,41 @@ public class DMDServiceOffer
    */
   public boolean matchesStore(DMDServiceOffer offer)
   {
+    if (offer == null)
+    {
+      return false;
+    }
+
     boolean result = true;
     result = result &&
-             (offer.provider_class_ == null 
+             (offer.provider_class_ == null
               || offer.provider_class_.equals(provider_class_));
-    
-    result = result && 
+
+    result = result &&
              (offer.mime_type_ == null || offer.mime_type_.equals(mime_type_));
-             
+
     result = result &&
              (offer.io_method_ == null || offer.io_method_.equals(io_method_));
-             
+
     result = result &&
              ((offer.io_mode_ & io_mode_) == offer.io_mode_);
-    
+
     return result;
   }
-  
+
   //---------------------------------------------------------------
   /**
    * Method description
    */
   public boolean matchesMapper(DMDServiceOffer offer)
   {
+    if (offer == null)
+    {
+      return false;
+    }
+
     boolean result = true;
-    
+
     result = result &&
              (offer.provider_class_ == null 
               || offer.provider_class_.equals(provider_class_));

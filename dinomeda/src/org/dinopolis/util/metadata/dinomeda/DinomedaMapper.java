@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaMapper.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DinomedaMapper.java,v 1.2 2003/03/03 13:56:39 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2002-2003
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002-2003
@@ -33,7 +33,9 @@ import org.dinopolis.util.metadata.DMDStore;
  * @author: Martin Oswald <ossi1@sbox.tugraz.at>
  * @author: Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.2.0
- *
+ */
+ 
+/**
  * The interface specifying methods and constants of name mappers
  * which map store names to the Dinomeda naming scheme.
  */

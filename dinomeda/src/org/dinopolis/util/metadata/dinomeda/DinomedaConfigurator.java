@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaConfigurator.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DinomedaConfigurator.java,v 1.2 2003/03/03 13:56:39 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -29,11 +29,14 @@ import org.dinopolis.util.metadata.DMDTrader;
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
  * @version 0.1.3
- *
+ */
+ 
+/**
  * The DinomedaConfigurator can configure DMDTraders using data read
  * from a java.util.Properties style config file.
  *
  * The configuration file looks like this:
+ * <pre>
  * providers=1
  *
  * provider0.class=ord.dinopolis.utils.metadata.dinomeda.DinomedaProvider
@@ -53,6 +56,7 @@ import org.dinopolis.util.metadata.DMDTrader;
  * provider0.mapper0.name=MP3Mapper
  * provider0.mapper0.mime=audio/x-mp3
  * provider0.mapper0.mapping=Dinomeda
+ * </pre>
  */
 public class DinomedaConfigurator
 {
