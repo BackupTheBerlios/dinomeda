@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDStore.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DMDStore.java,v 1.2 2003/03/10 17:54:30 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2002-2003
@@ -29,7 +29,9 @@ package org.dinopolis.util.metadata;
  * @author: Martin Oswald <ossi1@sbox.tugraz.at>
  * @author: Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *
+ */
+
+/**
  * The base interface for handlers doing the IO operations on the
  * data media, e.g File, Stream, Database.
  *

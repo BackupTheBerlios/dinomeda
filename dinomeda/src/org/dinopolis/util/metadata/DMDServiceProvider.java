@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDServiceProvider.java,v 1.2 2003/03/03 13:57:10 krake Exp $
+// $Id: DMDServiceProvider.java,v 1.3 2003/03/10 17:54:30 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -25,7 +25,9 @@ package org.dinopolis.util.metadata;
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
  * @version 0.2.0
- *
+ */
+ 
+/**
  * The service provider is a factory interface for
  * creating DMDStores and DMDMappers.
  * It can be queried if it will be able to provide the components

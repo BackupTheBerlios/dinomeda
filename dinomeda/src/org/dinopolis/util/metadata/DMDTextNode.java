@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDTextNode.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DMDTextNode.java,v 1.2 2003/03/10 17:54:30 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002
 //
@@ -25,8 +25,10 @@ package org.dinopolis.util.metadata;
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *
- * Class or interface description (mandatory)
+ */
+
+/**
+ * Class representing textual metadata
  */
 
 public class DMDTextNode extends DMDNode

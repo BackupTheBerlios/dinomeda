@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDTrader.java,v 1.2 2003/03/03 12:35:55 krake Exp $
+// $Id: DMDTrader.java,v 1.3 2003/03/10 17:54:30 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -68,7 +68,7 @@ import org.dinopolis.util.metadata.DMDNoSuchProviderException;
  * // ask for all (store) supported MIME types
  * // using the configuration from above, this returns a one element
  * // array: ["text/html"]
- * String mimes_types = trader.getStoreMIMETypes();
+ * String[] mimes_types = trader.getStoreMIMETypes();
  *
  * // ask for all available IO methods for the queried MIME type
  * // for the above configuration this returns a one element array:

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDNoSuchProviderException.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DMDNoSuchProviderException.java,v 1.2 2003/03/10 17:54:30 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -19,6 +19,9 @@ package org.dinopolis.util.metadata;
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
  * @version 0.1.0
+ */
+
+/**
  *
  * Exception indicating that an operation was requested for an unknown
  * DMDServiceProvider.

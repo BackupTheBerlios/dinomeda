@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDHandler.java,v 1.2 2003/03/03 12:35:18 osma Exp $
+// $Id: DMDHandler.java,v 1.3 2003/03/10 17:54:30 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2002-2003
@@ -26,7 +26,9 @@ import java.io.IOException;
  * @author: Martin Oswald <ossi1@sbox.tugraz.at>
  * @author: Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *
+ */
+
+/**
  * The base interface for all service modules.
  * It declares the basic IO operations.
  */
