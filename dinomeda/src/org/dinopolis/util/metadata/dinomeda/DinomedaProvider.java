@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaProvider.java,v 1.2 2003/03/03 12:35:55 krake Exp $
+// $Id: DinomedaProvider.java,v 1.3 2003/03/03 12:44:47 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002
 //
@@ -184,7 +184,7 @@ public class DinomedaProvider implements DMDServiceProvider
       return false;
     }
 
-    boolean provides_store;
+    boolean provides_store = false;
 
     // if no store is needed, we don't look for one
     if (query.getIOMethod() == null && query.getIOMode() == DMDHandler.NO_IO)
@@ -203,7 +203,7 @@ public class DinomedaProvider implements DMDServiceProvider
       }
     }
 
-    boolean provides_mapper;
+    boolean provides_mapper = false;
     // if no mapper is needed, we don't look for one
     if (query.getNameMapping() == null)
     {
