@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: AccessOptionPanel.java,v 1.3 2003/03/10 17:54:57 krake Exp $
+// $Id: AccessOptionPanel.java,v 1.4 2003/03/10 20:14:39 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -87,7 +87,6 @@ public class AccessOptionPanel extends JPanel
   {
     mapping_combo_.removeAllItems();
     mime_label_.setText("");
-    last_selected_mapping_ = null;
 
     String property_name = event.getPropertyName();
     if (JFileChooser.SELECTED_FILE_CHANGED_PROPERTY.equals(property_name))
@@ -95,6 +94,7 @@ public class AccessOptionPanel extends JPanel
       File file = (File)event.getNewValue();
       if (file != null)
       {
+        last_selected_mapping_ = null;
         String mime_type = MIME.getMIMETypeForFile(file);
         if (mime_type != null)
         {
