@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13FileStore.java,v 1.1 2003/02/27 21:56:13 krake Exp $
+// $Id: PDFv13FileStore.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -142,7 +142,7 @@ public class PDFv13FileStore implements DMDFileStore
     
     for (int i=0; i<joblist.size();i++)
     {
-      String job = joblist_.get(i).getJobName();
+      String job = joblist.get(i).getJobName();
       
       if ((joblist_.get(job)).getStatus()!=1)
       {       
@@ -320,7 +320,7 @@ public class PDFv13FileStore implements DMDFileStore
     readCRT(file);
     readInfoDict(file);
      
-    for (int i = 1; i < FIELDS.length; i++)
+    for (int i = 0; i < FIELDS.length; i++)
     {
       if (joblist.contains(FIELDS[i]))
       {
@@ -382,12 +382,8 @@ public class PDFv13FileStore implements DMDFileStore
         if (path.equals("/creationdate") ) return new DMDTextNode("/","creationdate",creationdate_);
         if (path.equals("/moddate")    ) return new DMDTextNode("/","moddate",moddate_);
       }
-      else
-      {
-        return new DMDNode();
-      }
-    
-    return null;
+  
+    return new DMDNode();
   }
   
   //---------------------------------------------------------------

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1Mapper.java,v 1.1 2003/02/27 21:56:13 krake Exp $
+// $Id: MP3v1Mapper.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //

@@ -1,2 +1,10 @@
+2003-02-28 Kevin Krammer <voyager@abox.tugraz.at>
+  * Changing DinomedaTrader to an offer-based system.
+    This allows to do lazy creation of providers.
+  * Fixes in mappers and stores.
+  * Swing application uses the names its GUI factory knows to filter the
+    name mappings the trader know, before populating the name combo.
+  * Error message boxes when creating GUI fails.
+
 2003-02-27 Kevin Krammer <voyager@sbox.tugraz.at>
   * Importing into Belios.de CVS

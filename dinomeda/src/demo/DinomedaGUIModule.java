@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaGUIModule.java,v 1.1 2003/02/27 21:56:14 krake Exp $
+// $Id: DinomedaGUIModule.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -20,6 +20,7 @@ package demo;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 
 // external packages
@@ -74,14 +75,17 @@ public class DinomedaGUIModule implements GUIModule, IOActionListener
     DMDMapper mapper = application_.getMappedFileStore(file, "Dinomeda");
     if (mapper == null)
     {
-      System.err.println("No mapped file store for " 
-                        + file);
+      String message = "Trader could not create mapped file store for " + file;
+      JOptionPane.showMessageDialog(main_panel_, message, 
+        "Retrieving store and mapper", JOptionPane.ERROR_MESSAGE);
       return false; 
     }
     
     if (!(mapper instanceof DinomedaMapper))
     {
-      System.err.println("Mapper is not a Dinomeda Mapper");
+      String message = "Mapper returned by trader is not a Dinomeda mapper";
+      JOptionPane.showMessageDialog(main_panel_, message, 
+        "Retrieving store and mapper", JOptionPane.ERROR_MESSAGE);
       return false;
     }
     
@@ -145,7 +149,6 @@ public class DinomedaGUIModule implements GUIModule, IOActionListener
     {
       try
       {
-        main_panel_.dataToMapper();
         mapper_.read(createJobList());
         main_panel_.dataFromMapper();
       }

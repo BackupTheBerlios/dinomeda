@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDServiceProvider.java,v 1.1 2003/02/27 21:56:11 krake Exp $
+// $Id: DMDServiceProvider.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
-// Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002
+// Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                          
@@ -24,7 +24,7 @@ package org.dinopolis.utils.metadata;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
- * @version 0.1.0
+ * @version 0.2.0
  *
  * Class or interface description (mandatory)
  */
@@ -35,17 +35,17 @@ public interface DMDServiceProvider
   /**
    * Method description
    */
-  public DMDStore getStore(DMDServiceQuery query);
+  public DMDStore getStore(DMDServiceOffer query);
 
   //---------------------------------------------------------------
   /**
    * Method description
    */
-  public DMDMapper getMapper(DMDServiceQuery query);
+  public DMDMapper getMapper(DMDServiceOffer query);
 
   //---------------------------------------------------------------
   /**
    * Method description
    */
-  public boolean canProvide(DMDServiceQuery query);
+  public boolean canProvide(DMDServiceOffer query);
 }

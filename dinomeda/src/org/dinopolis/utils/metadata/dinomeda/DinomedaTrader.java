@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaTrader.java,v 1.1 2003/02/27 21:56:11 krake Exp $
+// $Id: DinomedaTrader.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -17,23 +17,25 @@
 package org.dinopolis.utils.metadata.dinomeda;
 
 // Java imports
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.Vector;
 
 // local imports
+import org.dinopolis.utils.metadata.DMDHandler;
 import org.dinopolis.utils.metadata.DMDServiceProvider;
-import org.dinopolis.utils.metadata.DMDServiceQuery;
+import org.dinopolis.utils.metadata.DMDServiceOffer;
 import org.dinopolis.utils.metadata.DMDTrader;
 import org.dinopolis.utils.metadata.DMDNoSuchProviderException;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
- * @version 0.1.0
+ * @version 0.2.0
  *
  * This class is the Dinomeda project's implementation of a DMDTrader.
  */
@@ -45,10 +47,9 @@ public class DinomedaTrader implements DMDTrader
    */
   public DinomedaTrader()
   {
-    providers_ = new TreeMap();
-    mime_types_ = new HashSet();
-    io_methods_by_mime_ = new HashMap();
-    name_mappings_by_mime_ = new HashMap();
+    stores_by_mime_ = new HashMap();
+    mappers_by_mime_ = new HashMap();
+    provider_classes_ = new HashMap();
   }
 
   //---------------------------------------------------------------
@@ -56,14 +57,14 @@ public class DinomedaTrader implements DMDTrader
    * Searches for a service provider which will be able to provide a
    * service matching the query's requirements.
    *
-   * @param query a DMDServiceQuery instance containing all requirements
+   * @param query a DMDServiceOffer instance containing all requirements
    *              a potential candidate service has to offer.
    * @return a DMDServiceProvider which can offer all components matching the
    *         requirements specified by the query object or null if no
    *         configured service provider can offer such a service.
-   * @throws IllegalArgumentException if query is null or empty.
+   * @throws IllegalArgumentException if query is null
    */
-  public DMDServiceProvider findService(DMDServiceQuery query)
+  public DMDServiceProvider findService(DMDServiceOffer query)
       throws IllegalArgumentException
   {
     if (query == null)
@@ -72,20 +73,32 @@ public class DinomedaTrader implements DMDTrader
     }
 
     DMDServiceProvider provider = null;
-
-    Iterator iter = providers_.values().iterator();
-    while (iter.hasNext())
+    DMDServiceOffer[] offers = findMatchingOffers(query);
+    if (offers != null)
     {
-      provider = (DMDServiceProvider) iter.next();
-      if (provider != null)
+      String class_name = offers[0].getProviderClass();
+      Class provider_class = (Class) provider_classes_.get(class_name);
+      if (provider_class != null)
       {
-        if (provider.canProvide(query))
+        try
         {
-          return provider;
+          provider = (DMDServiceProvider) provider_class.newInstance();
+          if (!provider.canProvide(query))
+          {
+            System.err.println("DinomedaTrader: provider-offer missmatch");
+            System.err.println("Provider=" + class_name);
+            System.err.println("offer=" + offers[0]);
+            provider = null;
+          }
+        }
+        catch (Exception exception)
+        {
+          exception.printStackTrace(System.err);
         }
       }
     }
-    return null;
+
+    return provider;
   }
 
   //---------------------------------------------------------------
@@ -93,16 +106,16 @@ public class DinomedaTrader implements DMDTrader
    * Searches for service providers which will be able to provide a
    * service matching the query's requirements.
    * If there is more than one match, the provider at index 0 should be
-   * the same provider findService(DMDServiceQuery) would have returned.
+   * the same provider findService(DMDServiceOffer) would have returned.
    *
-   * @param query a DMDServiceQuery instance containing all requirements
+   * @param query a DMDServiceOffer instance containing all requirements
    *              a potential candidate service has to offer.
    * @return an array of service providers which will be able to offer all
    *         components matching the query's requirements or null if no
    *         configured service provider can offer such a service.
-   * @throws IllegalArgumentException if query is null or empty.
+   * @throws IllegalArgumentException if query is null
    */
-  public DMDServiceProvider[] findServices(DMDServiceQuery query)
+  public DMDServiceProvider[] findServices(DMDServiceOffer query)
       throws IllegalArgumentException
   {
     if (query == null)
@@ -110,27 +123,181 @@ public class DinomedaTrader implements DMDTrader
       throw new IllegalArgumentException();
     }
 
-    Vector providers = new Vector(providers_.size());
-    DMDServiceProvider provider = null;
-
-    Iterator iter = providers_.values().iterator();
-    while (iter.hasNext())
+    DMDServiceOffer[] offers = findMatchingOffers(query);
+    if (offers == null)
     {
-      provider = (DMDServiceProvider) iter.next();
-      if (provider != null)
+      return null;
+    }
+    
+    List result_list = new ArrayList();
+    for (int count = 0; count < offers.length; ++count)
+    {
+      String class_name = offers[count].getProviderClass();
+      Class provider_class = (Class) provider_classes_.get(class_name);
+      if (provider_class != null)
       {
-        if (provider.canProvide(query))
+        try
         {
-          providers.add(provider);
+          DMDServiceProvider provider =
+            (DMDServiceProvider) provider_class.newInstance();
+          if (!provider.canProvide(query))
+          {
+            System.err.println("DinomedaTrader: provider-offer missmatch");
+            System.err.println("Provider=" + class_name);
+            System.err.println("offer=" + offers[count]);
+            provider = null;
+          }
+          else
+          {
+            result_list.add(provider);
+          }
+        }
+        catch (Exception exception)
+        {
+          exception.printStackTrace(System.err);
         }
       }
     }
+    
+    DMDServiceProvider[] result = new DMDServiceProvider[result_list.size()];
 
-    DMDServiceProvider[] result = new DMDServiceProvider[providers.size()];
-
-    return (DMDServiceProvider[]) providers.toArray(result);
+    return (DMDServiceProvider[]) result_list.toArray(result);
   }
 
+  //---------------------------------------------------------------
+  /**
+   * Method description
+   */
+  public DMDServiceOffer[] findMatchingOffers(DMDServiceOffer query)
+      throws IllegalArgumentException
+  {
+    if (query == null)
+    {
+      throw new IllegalArgumentException();
+    }
+    
+    List stores = new ArrayList();
+    List mappers = new ArrayList();
+    
+    Collection offers = stores_by_mime_.values();
+    Iterator iter = offers.iterator();
+    while (iter.hasNext())
+    {
+      List offer_list = (List) iter.next();
+      
+      Iterator list_iter = offer_list.iterator();
+      while (list_iter.hasNext())
+      {
+        DMDServiceOffer offer = (DMDServiceOffer) list_iter.next();
+        if (offer != null)
+        {
+          if (offer.matchesStore(query))
+          {
+            stores.add(offer);
+          }
+        }
+      }
+    }
+    
+    offers = mappers_by_mime_.values();
+    iter = offers.iterator();
+    while (iter.hasNext())
+    {
+      List offer_list = (List) iter.next();
+      
+      Iterator list_iter = offer_list.iterator();
+      while (list_iter.hasNext())
+      {
+        DMDServiceOffer offer = (DMDServiceOffer) list_iter.next();
+        if (offer != null)
+        {
+          if (offer.matchesMapper(query))
+          {
+            mappers.add(offer);
+          }
+        }
+      }
+    }
+        
+    int mode = 0;
+    if (query.getProviderClass() != null)
+    {
+      mode |= 1;
+    }
+    if (query.getMIMEType() != null)
+    {
+      mode |= 2;
+    }
+    if (query.getIOMethod() != null || query.getIOMode() != DMDHandler.NO_IO)
+    {
+      mode |= 4;
+    }
+    if (query.getNameMapping() != null)
+    {
+      mode |= 8;
+    }
+    
+    List result_list = new ArrayList();
+    switch (mode)
+    {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        result_list.addAll(stores);
+        result_list.addAll(mappers);
+        break;
+        
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+        result_list.addAll(stores);
+        break;
+        
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+        result_list.addAll(mappers);
+        break;
+        
+      case 12:
+      case 13:
+      case 14:
+      case 15:
+        for (int scount = 0; scount < stores.size(); ++scount)
+        {
+          for (int mcount = 0; mcount < mappers.size(); ++mcount)
+          {
+            DMDServiceOffer store = (DMDServiceOffer) stores.get(scount);
+            DMDServiceOffer mapper = (DMDServiceOffer) mappers.get(mcount);
+            if (store.matchesStore(mapper)) // provider and mime equal
+            {
+              result_list.add(
+                new DMDServiceOffer(store.getProviderClass(), store.getMIMEType(),
+                                    mapper.getNameMapping(),
+                                    store.getIOMethod(), store.getIOMode()));
+            }
+          }
+        }
+        break;
+      
+      default:
+        break;
+        
+    }
+    
+    if (result_list.size() == 0)
+    {
+      return null;
+    }
+    
+    DMDServiceOffer[] result = new DMDServiceOffer[result_list.size()];
+    
+    return (DMDServiceOffer[])result_list.toArray(result);
+  } 
+  
   //---------------------------------------------------------------
   /**
    * Registers a new service provider at the trader.
@@ -147,24 +314,13 @@ public class DinomedaTrader implements DMDTrader
       throw new IllegalArgumentException();
     }
 
-    if (providers_.containsKey(class_name))
+    if (provider_classes_.containsKey(class_name))
     {
       return;
     }
-
+    
     Class provider_class = Class.forName(class_name);
-    DMDServiceProvider provider = null;
-    try
-    {
-      provider = (DMDServiceProvider) provider_class.newInstance();
-    }
-    catch (Exception exception)
-    {
-      exception.printStackTrace(System.err);
-      throw new ClassNotFoundException();
-    }
-
-    providers_.put(class_name, provider);
+    provider_classes_.put(class_name, provider_class);
   }
 
   //---------------------------------------------------------------
@@ -193,20 +349,21 @@ public class DinomedaTrader implements DMDTrader
       throw new IllegalArgumentException();
     }
     
-    if (!providers_.containsKey(provider_class_name))
+    if (!provider_classes_.containsKey(provider_class_name))
     {
       throw new DMDNoSuchProviderException();
     }
 
-    mime_types_.add(mime_type);
-
-    Set io_methods = (Set) io_methods_by_mime_.get(mime_type);
-    if (io_methods == null)
+    DMDServiceOffer offer = 
+      new DMDServiceOffer(provider_class_name, mime_type, "", io_method, io_mode);
+    
+    List offers = (List) stores_by_mime_.get(mime_type);
+    if (offers == null)
     {
-      io_methods = new HashSet();
-      io_methods_by_mime_.put(mime_type, io_methods);
+      offers = new ArrayList();
+      stores_by_mime_.put(mime_type, offers);
     }
-    io_methods.add(io_method);
+    offers.add(offer);
   }
 
   //---------------------------------------------------------------
@@ -233,18 +390,21 @@ public class DinomedaTrader implements DMDTrader
       throw new IllegalArgumentException();
     }
 
-    if (!providers_.containsKey(provider_class_name))
+    if (!provider_classes_.containsKey(provider_class_name))
     {
       throw new DMDNoSuchProviderException();
     }
 
-    Set mappings = (Set) name_mappings_by_mime_.get(mime_type);
-    if (mappings == null)
+    DMDServiceOffer offer = 
+      new DMDServiceOffer(provider_class_name, mime_type, name_mapping, null, DMDHandler.NO_IO);
+    
+    List offers = (List) mappers_by_mime_.get(mime_type);
+    if (offers == null)
     {
-      mappings = new HashSet();
-      name_mappings_by_mime_.put(mime_type, mappings);
+      offers = new ArrayList();
+      mappers_by_mime_.put(mime_type, offers);
     }
-    mappings.add(name_mapping);
+    offers.add(offer);
   }
 
   //---------------------------------------------------------------
@@ -257,36 +417,55 @@ public class DinomedaTrader implements DMDTrader
    * @throws DMDNoSuchProviderException if the given provider is unknown in to
    *         this trader.
    */
-  public void removeProvider(String class_name)
+  public void removeProvider(String provider_class_name)
       throws IllegalArgumentException, DMDNoSuchProviderException
   {
+    if (!provider_classes_.containsKey(provider_class_name))
+    {
+      throw new DMDNoSuchProviderException();
+    }
+    
+    //TODO: remove offers
   }
   
   //---------------------------------------------------------------
   /**
+   * Method description
    */
   public String[] getStoreMIMETypes()
   {
-    String[] types = new String[mime_types_.size()];
-    types = (String[]) mime_types_.toArray(types);
+    Set type_set = stores_by_mime_.keySet();
+       
+    String[] types = new String[type_set.size()];
+    types = (String[]) type_set.toArray(types);
     
     return types;
   }
 
   //---------------------------------------------------------------
   /**
+   * Method description
    */
   public String[] getIOMethods()
   {
+    Collection values = stores_by_mime_.values();
     Set all_methods = new HashSet();
     
-    Iterator iter = io_methods_by_mime_.values().iterator();
+    Iterator iter = values.iterator();
     while (iter.hasNext())
     {
-      Set methods = (Set) iter.next();
-      if (methods != null)
+      List offers = (List) iter.next();
+      if (offers != null)
       {
-        all_methods.addAll(methods);
+        Iterator offer_iter = offers.iterator();
+        while (offer_iter.hasNext())
+        {
+          DMDServiceOffer offer = (DMDServiceOffer) offer_iter.next();
+          if (offer != null)
+          {
+            all_methods.add(offer.getIOMethod());
+          }
+        }
       }
     } 
   
@@ -297,6 +476,7 @@ public class DinomedaTrader implements DMDTrader
   
   //---------------------------------------------------------------
   /**
+   * Method description
    */
   public String[] getIOMethodsForMIME(String mime_type)
       throws IllegalArgumentException
@@ -306,10 +486,22 @@ public class DinomedaTrader implements DMDTrader
       throw new IllegalArgumentException();
     }
     
-    Set methods = (Set) io_methods_by_mime_.get(mime_type);
-    if (methods == null)
+    List offers = (List) stores_by_mime_.get(mime_type);
+    if (offers == null)
     {
       return new String[0];
+    }
+    
+    Set methods = new HashSet();
+    
+    Iterator iter = offers.iterator();
+    while (iter.hasNext())
+    {
+      DMDServiceOffer offer = (DMDServiceOffer) iter.next();
+      if (offer != null)
+      {
+        methods.add(offer.getIOMethod());
+      }
     }
     
     String[] result = new String[methods.size()];
@@ -319,18 +511,28 @@ public class DinomedaTrader implements DMDTrader
   
   //---------------------------------------------------------------
   /**
+   * Method description
    */
   public String[] getNameMappings()
   {
+    Collection values = mappers_by_mime_.values();
     Set all_mappings = new HashSet();
     
-    Iterator iter = name_mappings_by_mime_.values().iterator();
+    Iterator iter = values.iterator();
     while (iter.hasNext())
     {
-      Set mappings = (Set) iter.next();
-      if (mappings != null)
+      List offers = (List) iter.next();
+      if (offers != null)
       {
-        all_mappings.addAll(mappings);
+        Iterator offer_iter = offers.iterator();
+        while (offer_iter.hasNext())
+        {
+          DMDServiceOffer offer = (DMDServiceOffer) offer_iter.next();
+          if (offer != null)
+          {
+            all_mappings.add(offer.getNameMapping());
+          }
+        }
       }
     } 
   
@@ -341,6 +543,7 @@ public class DinomedaTrader implements DMDTrader
   
   //---------------------------------------------------------------
   /**
+   * Method description
    */
   public String[] getNameMappingsForMIME(String mime_type)
       throws IllegalArgumentException
@@ -350,19 +553,30 @@ public class DinomedaTrader implements DMDTrader
       throw new IllegalArgumentException();
     }
     
-    Set mappings = (Set) name_mappings_by_mime_.get(mime_type);
-    if (mappings == null)
+    List offers = (List) mappers_by_mime_.get(mime_type);
+    if (offers == null)
     {
       return new String[0];
+    }
+    
+    Set mappings = new HashSet();
+    
+    Iterator iter = offers.iterator();
+    while (iter.hasNext())
+    {
+      DMDServiceOffer offer = (DMDServiceOffer) iter.next();
+      if (offer != null)
+      {
+        mappings.add(offer.getNameMapping());
+      }
     }
     
     String[] result = new String[mappings.size()];
     
     return (String[]) mappings.toArray(result);
   }
-  
-  protected Map providers_;
-  protected Set mime_types_;
-  protected Map io_methods_by_mime_;
-  protected Map name_mappings_by_mime_;
+     
+  protected Map stores_by_mime_;
+  protected Map mappers_by_mime_;
+  protected Map provider_classes_;
 }

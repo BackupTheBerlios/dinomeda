@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: AccessOptionPanel.java,v 1.1 2003/02/27 21:56:14 krake Exp $
+// $Id: AccessOptionPanel.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -22,6 +22,7 @@ import java.awt.Insets;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.TreeSet;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -80,7 +81,6 @@ public class AccessOptionPanel extends JPanel implements PropertyChangeListener
   public void propertyChange(PropertyChangeEvent event)
   {
     mapping_combo_.removeAllItems();
-    mapping_combo_.setEnabled(false);
     mime_label_.setText("");
     
     String property_name = event.getPropertyName();
@@ -96,18 +96,29 @@ public class AccessOptionPanel extends JPanel implements PropertyChangeListener
           
           String[] mappings = 
             application_.getNameMappingsForFile(file);
+
           if (mappings != null && mappings.length > 0)
           {
-            mapping_combo_.setEnabled(true);
-            for (int count = 0; count < mappings.length; ++count)
+            String[] guis = GUIModuleFactory.getModuleNames();
+            if (guis.length > 0)
             {
-              mapping_combo_.addItem(mappings[count]);
+              for (int count = 0; count < mappings.length; ++count)
+              {
+                for (int count2 = 0; count2 < guis.length; ++count2)
+                {
+                  if (guis[count2].equals(mappings[count]))
+                  {
+                    mapping_combo_.addItem(mappings[count]);
+                    break;
+                  }
+                }
+              }
             }
           }
         }
       }
-    } 
-    
+    }     
+    mapping_combo_.setEnabled(mapping_combo_.getItemCount() > 0);
   }  
   
   public String getSelectedNameMapping()

@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDServiceQuery.java,v 1.1 2003/02/27 21:56:11 krake Exp $
+// $Id: DMDServiceQuery.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
-// Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002
+// Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                          
@@ -24,12 +24,12 @@ package org.dinopolis.utils.metadata;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
- * @version 0.1.0
+ * @version 0.2.0
  *
  * Class or interface description (mandatory)
  */
 
-public class DMDServiceQuery
+public class DMDServiceQuery extends DMDServiceOffer
 {
   //---------------------------------------------------------------
   /**
@@ -37,12 +37,9 @@ public class DMDServiceQuery
    */
   public DMDServiceQuery()
   {
-    mime_type_ = null;
-    name_mapping_ = null;
-    io_method_ = null;
-    io_mode_ = DMDHandler.NO_IO; // No io mode required, matches any IO mode
+    super(null, null, null, null, DMDHandler.NO_IO);
   }
-
+  
   //---------------------------------------------------------------
   /**
    * Method description
@@ -51,15 +48,6 @@ public class DMDServiceQuery
   public void setMIMEType(String mime_type)
   {
     mime_type_ = mime_type;
-  }  
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public String getMIMEType()
-  {
-    return mime_type_;
   }  
   
   //---------------------------------------------------------------
@@ -75,28 +63,10 @@ public class DMDServiceQuery
   /**
    * Method description
    */
-  public String getNameMapping()
-  {
-    return name_mapping_;
-  }
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public void setIOMethod(String io_method)
   {
     io_method_ = io_method;
   }
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public String getIOMethod()
-  {
-    return io_method_;
-  }      
   
   //---------------------------------------------------------------
   /**
@@ -111,20 +81,13 @@ public class DMDServiceQuery
   /**
    * Method description
    */
-  public int getIOMode()
-  {
-    return io_mode_;
-  }
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public String toString()
   {
     StringBuffer buffer = new StringBuffer();
     
-    buffer.append("DMDServiceQuery{mime=");
+    buffer.append("DMDServiceOffer{provider=");
+    buffer.append(provider_class_);
+    buffer.append(",mime=");
     buffer.append(mime_type_);
     buffer.append(",mapping=");
     buffer.append(name_mapping_);
@@ -135,46 +98,4 @@ public class DMDServiceQuery
     
     return buffer.toString();
   }  
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public boolean matchesStore(DMDServiceQuery query)
-  {
-    boolean result = true;
-    
-    result = result && 
-             (query.mime_type_ == null || query.mime_type_.equals(mime_type_));
-             
-    result = result &&
-             (query.io_method_ == null || query.io_method_.equals(io_method_));
-             
-    result = result &&
-             ((query.io_mode_ & io_mode_) == query.io_mode_);
-    
-    return result;
-  }
-  
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-  public boolean matchesMapper(DMDServiceQuery query)
-  {
-    boolean result = true;
-    
-    result = result && 
-             (query.mime_type_ == null || query.mime_type_.equals(mime_type_));
-             
-    result = result &&
-             (query.name_mapping_ == null || query.name_mapping_.equals(name_mapping_));
-    
-    return result;
-  }
-  
-  protected String mime_type_;
-  protected String name_mapping_;
-  protected String io_method_;
-  protected int    io_mode_;  
 }

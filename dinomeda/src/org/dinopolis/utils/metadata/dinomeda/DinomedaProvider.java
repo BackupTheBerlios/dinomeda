@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaProvider.java,v 1.1 2003/02/27 21:56:13 krake Exp $
+// $Id: DinomedaProvider.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002
 //
@@ -24,7 +24,7 @@ package org.dinopolis.utils.metadata.dinomeda;
 import org.dinopolis.utils.metadata.DMDHandler;
 import org.dinopolis.utils.metadata.DMDMapper;
 import org.dinopolis.utils.metadata.DMDServiceProvider;
-import org.dinopolis.utils.metadata.DMDServiceQuery;
+import org.dinopolis.utils.metadata.DMDServiceOffer;
 import org.dinopolis.utils.metadata.DMDStore;
 
 /**
@@ -36,8 +36,10 @@ import org.dinopolis.utils.metadata.DMDStore;
 
 public class DinomedaProvider implements DMDServiceProvider
 {
-  public static final int STORES  = 4;
+  public static final int STORES  = 6;
   public static final int MAPPERS = 4;
+  public static final String CLASS_NAME = 
+    "org.dinopolis.utils.metadata.dinomeda.DinomedaProvider";
 
   //---------------------------------------------------------------
   /**
@@ -45,57 +47,51 @@ public class DinomedaProvider implements DMDServiceProvider
    */
   public DinomedaProvider()
   {
-    store_queries_ = new DMDServiceQuery[STORES];
+    store_offers_ = new DMDServiceOffer[STORES];
     
-    store_queries_[0] = new DMDServiceQuery();
-    store_queries_[0].setMIMEType("audio/x-mp3");
-    store_queries_[0].setIOMethod("File");
-    store_queries_[0].setIOMode(DMDHandler.ALL_IO);
+    store_offers_[0] = 
+      new DMDServiceOffer(CLASS_NAME, "audio/x-mp3", null, "File", DMDHandler.ALL_IO);
         
-    store_queries_[1] = new DMDServiceQuery();
-    store_queries_[1].setMIMEType("application/x-pdf");
-    store_queries_[1].setIOMethod("File");
-    store_queries_[1].setIOMode(DMDHandler.ALL_IO);
+    store_offers_[1] = 
+      new DMDServiceOffer(CLASS_NAME, "application/x-pdf", null, "File", DMDHandler.ALL_IO);
 
-    store_queries_[2] = new DMDServiceQuery();
-    store_queries_[2].setMIMEType("image/png");
-    store_queries_[2].setIOMethod("File");
-    store_queries_[2].setIOMode(DMDHandler.ALL_IO);
+    store_offers_[2] = 
+      new DMDServiceOffer(CLASS_NAME, "image/png", null, "File", DMDHandler.READ);
 
-    store_queries_[3] = new DMDServiceQuery();
-    store_queries_[3].setMIMEType("text/html");
-    store_queries_[3].setIOMethod("File");
-    store_queries_[3].setIOMode(DMDHandler.ALL_IO);
+    store_offers_[3] = 
+      new DMDServiceOffer(CLASS_NAME, "text/html", null, "File", DMDHandler.ALL_IO);
             
-    mapper_queries_ = new DMDServiceQuery[MAPPERS];
+    store_offers_[4] = 
+      new DMDServiceOffer(CLASS_NAME, "image/png", null, "Stream", DMDHandler.READ);
     
-    mapper_queries_[0] = new DMDServiceQuery();
-    mapper_queries_[0].setMIMEType("audio/x-mp3");
-    mapper_queries_[0].setNameMapping("Dinomeda");
+    store_offers_[5] = 
+      new DMDServiceOffer(CLASS_NAME, "text/html", null, "Stream", DMDHandler.ALL_IO);
+    
+    mapper_offers_ = new DMDServiceOffer[MAPPERS];
+    
+    mapper_offers_[0] = 
+      new DMDServiceOffer(CLASS_NAME, "audio/x-mp3", "Dinomeda", null, DMDHandler.NO_IO);
   
-    mapper_queries_[1] = new DMDServiceQuery();
-    mapper_queries_[1].setMIMEType("application/x-pdf");
-    mapper_queries_[1].setNameMapping("Dinomeda");
+    mapper_offers_[1] = 
+      new DMDServiceOffer(CLASS_NAME, "application/x-pdf", "Dinomeda", null, DMDHandler.NO_IO);
   
-    mapper_queries_[2] = new DMDServiceQuery();
-    mapper_queries_[2].setMIMEType("image/png");
-    mapper_queries_[2].setNameMapping("Dinomeda");
+    mapper_offers_[2] = 
+      new DMDServiceOffer(CLASS_NAME, "image/png", "Dinomeda", null, DMDHandler.NO_IO);
   
-    mapper_queries_[3] = new DMDServiceQuery();
-    mapper_queries_[3].setMIMEType("text/html");
-    mapper_queries_[3].setNameMapping("Dinomeda");
+    mapper_offers_[3] = 
+      new DMDServiceOffer(CLASS_NAME, "text/html", "Dinomeda", null, DMDHandler.NO_IO);
   }
    
   //---------------------------------------------------------------
   /**
    * Method description
    */
-  public DMDStore getStore(DMDServiceQuery query)
+  public DMDStore getStore(DMDServiceOffer query)
   {
     int count = -1;
     for (count = 0; count < STORES; ++count)
     {
-      if (store_queries_[count].matchesStore(query))
+      if (store_offers_[count].matchesStore(query))
       {
         break;
       }
@@ -116,6 +112,12 @@ public class DinomedaProvider implements DMDServiceProvider
       case 3: store = new HTMLFileStore();
         break;
         
+      case 4: store = new PNGStreamStore();
+        break;
+          
+      case 5: store = new HTMLStreamStore();
+        break;
+        
       default:
         break;
     }
@@ -127,12 +129,12 @@ public class DinomedaProvider implements DMDServiceProvider
   /**
    * Method description
    */
-  public DMDMapper getMapper(DMDServiceQuery query)
+  public DMDMapper getMapper(DMDServiceOffer query)
   {
     int count = -1;
     for (count = 0; count < MAPPERS; ++count)
     {
-      if (mapper_queries_[count].matchesMapper(query))
+      if (mapper_offers_[count].matchesMapper(query))
       {
         break;
       }
@@ -164,13 +166,13 @@ public class DinomedaProvider implements DMDServiceProvider
   /**
    * Method description
    */
-  public boolean canProvide(DMDServiceQuery query)
+  public boolean canProvide(DMDServiceOffer query)
   {
     boolean provides_store = false;
     
     for (int count = 0; count < STORES; ++count)
     {
-      if (store_queries_[count].matchesStore(query))
+      if (store_offers_[count].matchesStore(query))
       {
         provides_store = true;
         break;
@@ -181,7 +183,7 @@ public class DinomedaProvider implements DMDServiceProvider
     {
       for (int count = 0; count < MAPPERS; ++count)
       {
-        if (mapper_queries_[count].matchesMapper(query))
+        if (mapper_offers_[count].matchesMapper(query))
         {
           return true;
         }
@@ -191,6 +193,6 @@ public class DinomedaProvider implements DMDServiceProvider
     return false;
   }
   
-  protected DMDServiceQuery[] store_queries_;
-  protected DMDServiceQuery[] mapper_queries_;
+  protected DMDServiceOffer[] store_offers_;
+  protected DMDServiceOffer[] mapper_offers_;
 }

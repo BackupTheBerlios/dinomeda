@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13Mapper.java,v 1.1 2003/02/27 21:56:13 krake Exp $
+// $Id: PDFv13Mapper.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -121,11 +121,11 @@ public class PDFv13Mapper extends DinomedaMapper
       if (job.equals("/creator")) storejoblist.add(new DMDJobListItem("/author"));
       if (job.equals("/date"))
       {
-        storejoblist.add(new DMDJobListItem("/creationDate"));
+        storejoblist.add(new DMDJobListItem("/creationdate"));
         storejoblist.add(new DMDJobListItem("/moddate"));
       }
       if (job.equals("/description")) storejoblist.add(new DMDJobListItem("/keywords"));
-      if (job.equals("/type")) storejoblist.add(new DMDJobListItem("/subect"));
+      if (job.equals("/type")) storejoblist.add(new DMDJobListItem("/subject"));
      }
     
     return storejoblist;  
@@ -355,7 +355,8 @@ public class PDFv13Mapper extends DinomedaMapper
     if (date.length > maxDateCount) throw new ArrayIndexOutOfBoundsException();
     if (date.length == 0)
     {
-      store_.setElement(new DMDTextNode("/","creationdate",null));      store_.setElement(new DMDTextNode("/","moddate",null));  
+      store_.setElement(new DMDTextNode("/","creationdate",null));
+      store_.setElement(new DMDTextNode("/","moddate",null));  
     }
     else
     {

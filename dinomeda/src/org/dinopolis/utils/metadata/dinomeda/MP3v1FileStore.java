@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1FileStore.java,v 1.1 2003/02/27 21:56:13 krake Exp $
+// $Id: MP3v1FileStore.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002
 //
@@ -391,11 +391,8 @@ public class MP3v1FileStore implements DMDFileStore
         if (path.equals("/track")  ) return new DMDNumberNode("/","track",new Integer(getTag(path)[1]));
         if (path.equals("/genre")  ) return new DMDNumberNode("/","genre",new Integer(getTag(path)[0]));
       }
-      else
-      {
-        return new DMDNode();
-      }
-    return null;
+      
+    return new DMDNode();
   }
   
   //---------------------------------------------------------------

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDNode.java,v 1.1 2003/02/27 21:56:11 krake Exp $
+// $Id: DMDNode.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002
 //
@@ -28,7 +28,6 @@ public class DMDNode
   public static final short UNDEFINED_NODE = 0;
   public static final short TEXT_NODE = 1;
   public static final short NUMBER_NODE = 2;
-  public static final short DATE_NODE = 3;
 
   //---------------------------------------------------------------
   /**

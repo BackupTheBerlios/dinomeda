@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaMainWindow.java,v 1.1 2003/02/27 21:56:14 krake Exp $
+// $Id: DinomedaMainWindow.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -247,6 +247,9 @@ public class DinomedaMainWindow extends JFrame implements ActionListener, Change
       }
       else
       {
+        JOptionPane.showMessageDialog(this, "No GUI for name mapping: " + mapping, 
+          "Loading GUI", JOptionPane.ERROR_MESSAGE);
+        
         repaint();
       }
     }

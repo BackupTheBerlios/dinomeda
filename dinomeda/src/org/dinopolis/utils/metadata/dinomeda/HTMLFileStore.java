@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLFileStore.java,v 1.1 2003/02/27 21:56:14 krake Exp $
+// $Id: HTMLFileStore.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -450,9 +450,18 @@ public class HTMLFileStore implements DMDFileStore
   {
     String item = node.getPath() + node.getName();
     joblist_.add(new DMDJobListItem(item).itemModified());
-    // remove all exiting DMDNodes
-    deleteDMDNodes(item, metalist_);
-    metalist_.add(node);    
+    
+    if (node.isNull())
+    {
+      // remove all exiting DMDNodes
+      deleteDMDNodes(item, metalist_); 
+    }
+    else
+    {
+      // remove all exiting DMDNodes
+      deleteDMDNodes(item, metalist_);
+      metalist_.add(node);
+    }
   }
   
   //---------------------------------------------------------------
@@ -464,11 +473,7 @@ public class HTMLFileStore implements DMDFileStore
     while (iterator.hasNext())
     {
       DMDNode node = iterator.nextNode();
-      String item = node.getPath() + node.getName();
-      joblist_.add(new DMDJobListItem(item).itemModified());	
-      // remove all exiting DMDNodes
-      deleteDMDNodes(item, metalist_);
-      metalist_.add(node);    
+      setElement(node);
     }
   }
 
@@ -480,13 +485,15 @@ public class HTMLFileStore implements DMDFileStore
   {
     for (int i=0; i<metalist_.size(); i++)
     {
-      DMDNode node = (DMDNode)metalist_.get(i);
+      Object o = metalist_.get(i);
+      System.err.println("getElement: "+ o);
+      DMDNode node = (DMDNode)(metalist_.get(i));
       if(path.equals(node.getPath() + node.getName()))
       {
          return node;
       }
     }
-    return null;
+    return new DMDNode();
   }
 
   

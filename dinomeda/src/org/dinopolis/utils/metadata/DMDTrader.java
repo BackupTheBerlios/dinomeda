@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDTrader.java,v 1.1 2003/02/27 21:56:11 krake Exp $
+// $Id: DMDTrader.java,v 1.2 2003/02/28 13:00:53 krake Exp $
 //
-// Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002
+// Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                          
@@ -21,7 +21,7 @@ import org.dinopolis.utils.metadata.DMDNoSuchProviderException;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
- * @version 0.1.0
+ * @version 0.2.0
  *
  * The DMDTrader interface describes the main entry point for
  * applications using the Dinomeda framework, the Trader.
@@ -35,14 +35,14 @@ public interface DMDTrader
    * Searches for a service provider which will be able to provide a
    * service matching the query's requirements.
    *
-   * @param query a DMDServiceQuery instance containing all requirements
+   * @param query a DMDServiceOffer instance containing all requirements
    *              a potential candidate service has to offer.
    * @return a DMDServiceProvider which can offer all components matching the
    *         requirements specified by the query object or null if no
    *         configured service provider can offer such a service.
-   * @throws IllegalArgumentException if query is null or empty.
+   * @throws IllegalArgumentException if query is null.
    */
-  public DMDServiceProvider findService(DMDServiceQuery query)
+  public DMDServiceProvider findService(DMDServiceOffer query)
           throws IllegalArgumentException;
 
   //---------------------------------------------------------------
@@ -50,18 +50,25 @@ public interface DMDTrader
    * Searches for service providers which will be able to provide a
    * service matching the query's requirements.
    * If there is more than one match, the provider at index 0 should be
-   * the same provider findService(DMDServiceQuery) would have returned.
+   * the same provider findService(DMDServiceOffer) would have returned.
    *
-   * @param query a DMDServiceQuery instance containing all requirements
+   * @param query a DMDServiceOffer instance containing all requirements
    *              a potential candidate service has to offer.
    * @return an array of service providers which will be able to offer all
    *         components matching the query's requirements or null if no
    *         configured service provider can offer such a service.
-   * @throws IllegalArgumentException if query is null or empty.
+   * @throws IllegalArgumentException if query is null.
    */
-  public DMDServiceProvider[] findServices(DMDServiceQuery query)
+  public DMDServiceProvider[] findServices(DMDServiceOffer query)
           throws IllegalArgumentException;
 
+  //---------------------------------------------------------------
+  /**
+   * Method description
+   */
+  public DMDServiceOffer[] findMatchingOffers(DMDServiceOffer query)
+      throws IllegalArgumentException;
+  
   //---------------------------------------------------------------
   /**
    * Registers a new service provider at the trader.
