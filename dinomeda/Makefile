@@ -25,11 +25,14 @@ clean:
 	$(MAKE) -f src/demo.mak clean
 	rm -rf classes
 	mkdir classes
-doc: apidoc
+doc: docdir javadoc
 
-apidoc:
-	cd docs/apidoc && javadoc -sourcepath ../../src -classpath ../../classes org.dinopolis.util.metadata org.dinopolis.util.metadata.dinomeda
+docdir:
+	test -e docs/javadoc || mkdir docs/javadoc
+
+javadoc:
+	cd docs/javadoc && javadoc -sourcepath ../../src -classpath ../../classes org.dinopolis.util.metadata org.dinopolis.util.metadata.dinomeda
 
 doc-clean:
-	rm -r docs/apidoc
-	mkdir docs/apidoc
+	rm -r docs/javadoc
+	mkdir docs/javadoc
