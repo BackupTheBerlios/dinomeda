@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaConsoleApplication.java,v 1.2 2003/03/02 19:42:20 krake Exp $
+// $Id: DinomedaConsoleApplication.java,v 1.3 2003/03/02 19:59:08 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -26,8 +26,8 @@ import java.util.Properties;
 // external packages
 
 // local packages
-import org.dinopolis.utils.metadata.DMDMapper;
-import org.dinopolis.utils.metadata.dinomeda.DinomedaMapper;
+import org.dinopolis.util.metadata.DMDMapper;
+import org.dinopolis.util.metadata.dinomeda.DinomedaMapper;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>

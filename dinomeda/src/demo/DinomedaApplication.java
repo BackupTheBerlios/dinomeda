@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaApplication.java,v 1.2 2003/03/02 19:42:20 krake Exp $
+// $Id: DinomedaApplication.java,v 1.3 2003/03/02 19:59:08 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -25,15 +25,15 @@ import java.util.Properties;
 // external packages
 
 // local packages
-import org.dinopolis.utils.metadata.DMDFileStore;
-import org.dinopolis.utils.metadata.DMDHandler;
-import org.dinopolis.utils.metadata.DMDMapper;
-import org.dinopolis.utils.metadata.DMDServiceProvider;
-import org.dinopolis.utils.metadata.DMDServiceQuery;
-import org.dinopolis.utils.metadata.DMDStore;
-import org.dinopolis.utils.metadata.DMDTrader;
-import org.dinopolis.utils.metadata.dinomeda.DinomedaTrader;
-import org.dinopolis.utils.metadata.dinomeda.DinomedaConfigurator;
+import org.dinopolis.util.metadata.DMDFileStore;
+import org.dinopolis.util.metadata.DMDHandler;
+import org.dinopolis.util.metadata.DMDMapper;
+import org.dinopolis.util.metadata.DMDServiceProvider;
+import org.dinopolis.util.metadata.DMDServiceQuery;
+import org.dinopolis.util.metadata.DMDStore;
+import org.dinopolis.util.metadata.DMDTrader;
+import org.dinopolis.util.metadata.dinomeda.DinomedaTrader;
+import org.dinopolis.util.metadata.dinomeda.DinomedaConfigurator;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>

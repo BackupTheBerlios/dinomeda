@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaSwingApplication.java,v 1.1 2003/02/27 21:56:14 krake Exp $
+// $Id: DinomedaSwingApplication.java,v 1.2 2003/03/02 19:59:08 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -23,9 +23,9 @@ import java.util.Properties;
 // external packages
 
 // local packages
-import org.dinopolis.utils.metadata.DMDTrader;
-import org.dinopolis.utils.metadata.dinomeda.DinomedaTrader;
-import org.dinopolis.utils.metadata.dinomeda.DinomedaConfigurator;
+import org.dinopolis.util.metadata.DMDTrader;
+import org.dinopolis.util.metadata.dinomeda.DinomedaTrader;
+import org.dinopolis.util.metadata.dinomeda.DinomedaConfigurator;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
