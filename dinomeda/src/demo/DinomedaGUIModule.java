@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaGUIModule.java,v 1.4 2003/03/02 19:59:08 krake Exp $
+// $Id: DinomedaGUIModule.java,v 1.5 2003/03/03 13:57:47 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -149,6 +149,7 @@ public class DinomedaGUIModule implements GUIModule, IOActionListener
     {
       try
       {
+        main_panel_.dataToMapper();
         mapper_.read(createJobList());
         main_panel_.dataFromMapper();
       }
