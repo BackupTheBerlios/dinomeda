@@ -1,4 +1,7 @@
-2003-02-28 Kevin Krammer <voyager@abox.tugraz.at>
+2003-03-16 Mattias  Welponer <maba@sbox.tugraz.at>
+  * Fixed bug in HTML stores.
+
+2003-02-28 Kevin Krammer <voyager@sbox.tugraz.at>
   * Changing DinomedaTrader to an offer-based system.
     This allows to do lazy creation of providers.
   * Fixes in mappers and stores.

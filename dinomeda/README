@@ -35,8 +35,9 @@ Requirements:
 The library has no external requirements other than Java.
 
 The example implementation requires two additonal class libraries, both
-being included in the CVS package (both licenced under LGPL as well):
-PAT (www.javaregex.com) and Sixlegs PNG Decoder (www.sixlegs.com/software/png)
+being included in our CVS repository (both licenced under LGPL as well):
+PAT (www.javaregex.com) and Sixlegs PNG Decoder (www.sixlegs.com/software/png).
+The Release package contains only our code.
 
 The demo application requires a Java2 implementation due to its SWING GUI mode.
 It has be tested using a Blackdown JDK1.3.1 on Linux.
@@ -49,6 +50,7 @@ Building:
 Using the Makefile, building library, plugins and demo application is as simple
 as
 #> make
+The Makefile from CVS will also compile the support libraries.
 
 Creating the javadoc API documentation can be done by using the Makefile target doc
 #> make doc
@@ -78,6 +80,8 @@ It understands some commandline parameters:
 
 The packages top directory contains two SH shellscripts, specifying the most
 common parameters.
+If you have the support libraries installed in a different directory than
+classes/ you might have to change the classpath.
 
 rundemo.sh:
 provides the --cfg option pointing to the file src/demo/dinomeda.cfg
