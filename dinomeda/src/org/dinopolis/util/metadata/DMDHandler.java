@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDHandler.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DMDHandler.java,v 1.2 2003/03/03 12:35:18 osma Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2002-2003
@@ -41,73 +41,99 @@ public interface DMDHandler
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Reads all metadata, that has been read and changed, again.
+   * @return the amount of metadata that was read.
+   * @throws IOException if the metadata cannot be accessed.
    */
   public int read() throws IOException;
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Reads the metadata, that is specified by the given path.
+   * @param path the path of the metadata.
+   * @return the amount of metadata that was read.
+   * @throws IOException if the metadata cannot be accessed.
    */
   public int read(String path) throws IOException;
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Reads the metadata, that is specified by the given joblist.
+   * @param joblist a list containing all the metadata that has to be read.
+   * @return the amount of metadata that was read.
+   * @throws IOException if the metadata cannot be accessed.
    */
   public int read(DMDJobList joblist) throws IOException;
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Updates all metadata, that has been changed.
+   * @return the amount of metadata that was updated.
+   * @throws IOException if the metadata cannot be accessed.
    */
   public int update() throws IOException;
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Updates the metadata, that is specified by the given path and 
+   * has been changed.
+   * @param path the path of the metadata.
+   * @return the amount of metadata that was updated.
+   * @throws IOException if the metadata cannot be accessed.
    */
   public int update(String path) throws IOException;
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Updates the metadata, that is specified by the given joblist and 
+   * has been changed.
+   * @param joblist a list containing all the metadata that has to be updated.
+   * @return the amount of metadata that was updated.
+   * @throws IOException if the metadata cannot be accessed.
    */
   public int update(DMDJobList joblist) throws IOException;
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Writes all metadata, that has been read or changed and deletes the 
+   * rest of the metadata.
+   * @return the amount of metadata that was written.
+   * @throws IOException if the metadata cannot be accessed.
    */
   public int write() throws IOException;
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Writes all metadata, that is specified by the given path and deletes 
+   * the rest of the metadata.
+   * @param path the path of the metadata.
+   * @return the amount of metadata that was written.
+   * @throws IOException if the metadata cannot be accessed.
    */
   public int write(String path) throws IOException;
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Writes all metadata, that is specified by the given joblist and deletes 
+   * the rest of the metadata.
+   * @param path the path of the metadata.
+   * @return the amount of metadata that was written.
+   * @throws IOException if the metadata cannot be accessed.
    */
   public int write(DMDJobList joblist) throws IOException;
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Returns the MIMEType of the file or stream containing the metadata
+   * @return the MIMEType of the file or stream containing the metadata
    */
   public String getMIMEType();
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Returns the handlers IOMode
+   * @return the handlers IOMode
    */
   public int getIOMode();
   
-  //---------------------------------------------------------------
-  /**
-   * Method description
-   */
-//  public DMDJobList createJobList(String item);
 }
