@@ -1,3 +1,9 @@
+2003-05-06 Kevin Krammer <voyager@sbox.tugraz.at>
+  * Removing one of the dependency libs (RegExp) from CVS
+    after HTMLStores transition to Java's native regexp.
+  * Added an iterator() method to the store interface to make it look
+    more common to Java developers.
+
 2003-03-16 Mattias  Welponer <maba@sbox.tugraz.at>
   * Fixed bug in HTML stores.
 

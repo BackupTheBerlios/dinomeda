@@ -40,7 +40,7 @@ Sixlegs PNG Decoder (www.sixlegs.com/software/png).
 The Release package contains only our code.
 
 The demo application requires a Java2 implementation >= 1.4.0 due to its SWING GUI mode
-and the use of the Java regular expression extension.
+and the use of the Java regular expression extension used in the HTML stores.
 
 The Makefile located in the project's top directory is only tested under Linux.
 It contains some references to Unix shell commands, such as rm, cd and mkdir.
