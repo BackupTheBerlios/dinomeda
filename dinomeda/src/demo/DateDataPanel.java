@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DateDataPanel.java,v 1.1 2003/02/27 21:56:15 krake Exp $
+// $Id: DateDataPanel.java,v 1.2 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -47,7 +47,7 @@ public class DateDataPanel extends DataPanel
   {
     super(name);
     
-    formatter_ = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+    formatter_ = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
   }
     
   //---------------------------------------------------------------

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaApplication.java,v 1.1 2003/02/27 21:56:14 krake Exp $
+// $Id: DinomedaApplication.java,v 1.2 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -78,22 +78,27 @@ abstract public class DinomedaApplication
     {
       return;
     }
-    
+
     FileInputStream file_in = null;
     file_in = new FileInputStream(config_file_);
     config_.load(file_in);
+    File file = new File(config_file_);
+    String path = file.getParent();
+    config_.setProperty("dinomeda.configpath", path + System.getProperty("file.separator"));
   }
-  
+
   //---------------------------------------------------------------
   /**
    * Method description
    */
   public void configureTrader() throws IOException
   {
+    String config_path = config_.getProperty("dinomeda.configpath");
+    System.err.println("cp:" + config_path);
     String trader_config = config_.getProperty("dinomeda.traderconfig");
-    
+
     DinomedaConfigurator configurator = new DinomedaConfigurator();
-    configurator.readConfig(trader_config);
+    configurator.readConfig(config_path+"/"+trader_config);
     configurator.configure(trader_);
   }
   
@@ -202,7 +207,7 @@ abstract public class DinomedaApplication
   private void parseArguments(String[] args)
   {
     String config_file = null;
-    
+
     int pos = -1;
     for (int count = 0; count < args.length; ++count)
     {
@@ -212,17 +217,17 @@ abstract public class DinomedaApplication
         {
           config_file = args[count+1];
         }
-        
+
         if (config_file == null)
         {
           System.err.println("Option cfg missing configfile");
         }
-        
+
         pos = count;
         break;
       }
     }
-    
+
     if (pos > -1)
     {
       int after_file = pos+1;
@@ -234,16 +239,16 @@ abstract public class DinomedaApplication
       }
 
       program_arguments_ = new String[length];
-            
+
       System.arraycopy(args, 0, program_arguments_, 0, pos);
-      
-      System.arraycopy(args, after_file, program_arguments_, pos, (length-pos)); 
+
+      System.arraycopy(args, after_file, program_arguments_, pos, (length-pos));
     }
     else
     {
       program_arguments_ = args;
     }
-    
+
     config_file_ = config_file;
   }
     

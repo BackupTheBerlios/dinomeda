@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1FileStore.java,v 1.2 2003/02/28 13:00:53 krake Exp $
+// $Id: MP3v1FileStore.java,v 1.3 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002
 //
@@ -93,7 +93,7 @@ public class MP3v1FileStore implements DMDFileStore
   
     if (!isValidID3v1())
     {
-      System.out.println("Warning: No MP3IDv1 tags found! Use write() to create tags.");
+      System.err.println("Warning: No MP3IDv1 tags found! Use write() to create tags.");
       return 0;
     }
   
@@ -103,7 +103,7 @@ public class MP3v1FileStore implements DMDFileStore
       
       if ((joblist_.get(i)).getStatus()!=1)
       {       
-        System.out.println("MP3v1FileStore -> read " + job);
+        System.err.println("MP3v1FileStore -> read " + job);
     
         file.seek(file.length() - getTagPosition(job));   
         file.read(getTag(job));
@@ -114,7 +114,7 @@ public class MP3v1FileStore implements DMDFileStore
       }
       else
       {
-        System.out.println("MP3v1FileStore -> "+ job + " already read");
+        System.err.println("MP3v1FileStore -> "+ job + " already read");
       }
     }
   
@@ -146,7 +146,7 @@ public class MP3v1FileStore implements DMDFileStore
   
     if (!isValidID3v1())
     {
-      System.out.println("Warning: No MP3IDv1 tags found! Use write() to create tags.");
+      System.err.println("Warning: No MP3IDv1 tags found! Use write() to create tags.");
       return 0;
     }
   
@@ -156,7 +156,7 @@ public class MP3v1FileStore implements DMDFileStore
       
       if ((joblist_.get(job)).getStatus()!=1)
       {       
-        System.out.println("MP3v1FileStore -> read " + job);
+        System.err.println("MP3v1FileStore -> read " + job);
     
         file.seek(file.length() - getTagPosition(job));   
         file.read(getTag(job));
@@ -167,7 +167,7 @@ public class MP3v1FileStore implements DMDFileStore
       }
       else
       {
-        System.out.println("MP3v1FileStore -> "+ job + " already read");
+        System.err.println("MP3v1FileStore -> "+ job + " already read");
       }
     }
   
@@ -197,7 +197,7 @@ public class MP3v1FileStore implements DMDFileStore
 
         if (joblist_.contains(FIELDS[i]) && joblist_.get(FIELDS[i]).getStatus()==2)
         {
-          System.out.println("MP3v1FileStore -> update " + FIELDS[i] + " '" + getElement(FIELDS[i]) + "'");
+          System.err.println("MP3v1FileStore -> update " + FIELDS[i] + " '" + getElement(FIELDS[i]) + "'");
           file.write(getTag(FIELDS[i]));
           (joblist_.get(FIELDS[i])).itemWrote();
           count++;
@@ -241,7 +241,7 @@ public class MP3v1FileStore implements DMDFileStore
       {
         if (joblist.contains(FIELDS[i])&& joblist_.contains(FIELDS[i]) && joblist_.get(FIELDS[i]).getStatus()==2)
         {
-          System.out.println("MP3v1FileStore -> update " + FIELDS[i] + " '" + getElement(FIELDS[i]) + "'");
+          System.err.println("MP3v1FileStore -> update " + FIELDS[i] + " '" + getElement(FIELDS[i]) + "'");
           file.write(getTag(FIELDS[i]));
           (joblist_.get(FIELDS[i])).itemWrote();
           count++;
@@ -284,14 +284,14 @@ public class MP3v1FileStore implements DMDFileStore
       {
         file.write(getTag(FIELDS[i]));
         (joblist_.get(FIELDS[i])).itemWrote();
-        System.out.println("MP3v1FileStore -> write " + FIELDS[i] + " '" + getElement(FIELDS[i])+ "'");
+        System.err.println("MP3v1FileStore -> write " + FIELDS[i] + " '" + getElement(FIELDS[i])+ "'");
         
       }
       else
       {
         setTag(FIELDS[i], "");
         file.write(getTag(FIELDS[i]));
-        System.out.println("MP3v1FileStore -> delete " + FIELDS[i]);
+        System.err.println("MP3v1FileStore -> delete " + FIELDS[i]);
       }
       count++;
       
@@ -341,7 +341,7 @@ public class MP3v1FileStore implements DMDFileStore
       {
         file.write(getTag(FIELDS[i]));
         (joblist_.get(FIELDS[i])).itemWrote();
-        System.out.println("MP3v1FileStore -> write " + FIELDS[i] + " '" + getElement(FIELDS[i])+"'");
+        System.err.println("MP3v1FileStore -> write " + FIELDS[i] + " '" + getElement(FIELDS[i])+"'");
         count++;
       }
       else
@@ -350,7 +350,7 @@ public class MP3v1FileStore implements DMDFileStore
         {
           setTag(FIELDS[i], "");
           file.write(getTag(FIELDS[i]));
-          System.out.println("MP3v1FileStore -> delete " + FIELDS[i]);
+          System.err.println("MP3v1FileStore -> delete " + FIELDS[i]);
           count++;
         }
          else
@@ -603,7 +603,7 @@ public class MP3v1FileStore implements DMDFileStore
   {
     if (dst.length < src.length)
     {
-      System.out.println("Warning: '" + new String(src) + "' has more than " + dst.length + " letters!");
+      System.err.println("Warning: '" + new String(src) + "' has more than " + dst.length + " letters!");
     }
     
     java.util.Arrays.fill(dst, (byte) 0);

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1Mapper.java,v 1.2 2003/02/28 13:00:53 krake Exp $
+// $Id: MP3v1Mapper.java,v 1.3 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -436,7 +436,7 @@ public class MP3v1Mapper extends DinomedaMapper
       if ((name).equals(genres_[index])) return new Integer(index);
     }
     Integer alternative = findAlternative(name);
-    System.out.println("Warning: Not able to map type '" + name + "'!" + " Using type '" + getGenreName(alternative) + "' instead.");
+    System.err.println("Warning: Not able to map type '" + name + "'!" + " Using type '" + getGenreName(alternative) + "' instead.");
      
     return alternative;
   }

@@ -1,9 +1,9 @@
 #!/bin/bash
-
-CLASSPATH=classes
+DIR=$(dirname $0)
+CLASSPATH=$DIR/classes
 MAINCLASS=demo.Dinomeda
-CONFIG=src/demo/dinomeda.cfg
+CONFIG=$DIR/src/demo/dinomeda.cfg
 JAVA=java
 
-$JAVA -cp $CLASSPATH $MAINCLASS --cfg $CONFIG $@
+$JAVA -cp $CLASSPATH $MAINCLASS --cfg $CONFIG "$@"
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PNGMapper.java,v 1.2 2003/02/28 13:00:53 krake Exp $
+// $Id: PNGMapper.java,v 1.3 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Mattias Welponer <mattias@welponer.net>, year
 //
@@ -85,13 +85,13 @@ public class PNGMapper extends DinomedaMapper
     return store_.update(mapJobList(joblist));
   }
   
-		
-		
-	public String[] getTitle()
+
+
+  public String[] getTitle()
   {
     DMDNode node = store_.getElement("/title");
-    
-    if (node.isNull()) 
+
+    if (node.isNull())
     {
       return new String[0];
     }
@@ -137,7 +137,7 @@ public class PNGMapper extends DinomedaMapper
     else
     {
       //return new Date[]{(makeDate((DMDTextNode)node).get())};
-      System.out.println("PNGMapper warning: Datemapping not yet implemented!");
+      System.err.println("PNGMapper warning: Datemapping not yet implemented!");
       return new Date[]{new Date()};
     }
   }
@@ -311,7 +311,7 @@ public class PNGMapper extends DinomedaMapper
     }
     else
     {
-      System.out.println("PNGMapper warning: Datemapping not yet implemented!");
+      System.err.println("PNGMapper warning: Datemapping not yet implemented!");
       //store_.setElement(new DMDTextNode("/","creation time",date[0]));
     }
     

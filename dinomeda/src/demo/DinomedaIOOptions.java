@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaIOOptions.java,v 1.1 2003/02/27 21:56:14 krake Exp $
+// $Id: DinomedaIOOptions.java,v 1.2 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -47,19 +47,10 @@ public class DinomedaIOOptions extends JPanel implements ActionListener
   {
     checkboxes_ = new JCheckBox[DinomedaMapper.FIELD_COUNT];
 
-    checkboxes_[0] = new JCheckBox("Title");
-    checkboxes_[1] = new JCheckBox("Creator");
-    checkboxes_[2] = new JCheckBox("Date");
-    checkboxes_[3] = new JCheckBox("Description");
-    checkboxes_[4] = new JCheckBox("Publisher");
-    checkboxes_[5] = new JCheckBox("Contributor");
-    checkboxes_[6] = new JCheckBox("Type");
-    checkboxes_[7] = new JCheckBox("Language");
-    checkboxes_[8] = new JCheckBox("Collection");
-    checkboxes_[9] = new JCheckBox("Rights");
-    checkboxes_[10] = new JCheckBox("Identifier");
-    checkboxes_[11] = new JCheckBox("Source");
-    checkboxes_[12] = new JCheckBox("Relation");
+    for (int count = 0; count < DinomedaMapper.FIELD_COUNT; ++count)
+    {
+      checkboxes_[count] = new JCheckBox(DinomedaMapper.FIELD_NAMES[count]);
+    }
 
     button_all_ = new JButton("Select all");
     button_all_.addActionListener(this);
@@ -73,7 +64,7 @@ public class DinomedaIOOptions extends JPanel implements ActionListener
     
     setLayout(new GridLayout(rows, 2));
     insets_ = new Insets(5, 10, 5, 10);
-    
+
     for (int count = 0; count < checkboxes_.length; ++count)
     {
       add(checkboxes_[count]);

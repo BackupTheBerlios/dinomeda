@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaGUIModule.java,v 1.2 2003/02/28 13:00:53 krake Exp $
+// $Id: DinomedaGUIModule.java,v 1.3 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -217,63 +217,19 @@ public class DinomedaGUIModule implements GUIModule, IOActionListener
     }
     else
     {
-      if (option_panel_.useField(0))
+      for (int count = 0; count < DinomedaMapper.FIELD_COUNT; ++count)
       {
-        job_list.add(new DMDJobListItem("/title"));
-      }
-      if (option_panel_.useField(1))
-      {
-        job_list.add(new DMDJobListItem("/creator"));
-      }
-      if (option_panel_.useField(2))
-      {
-        job_list.add(new DMDJobListItem("/date"));
-      }
-      if (option_panel_.useField(3))
-      {
-        job_list.add(new DMDJobListItem("/description"));
-      }
-      if (option_panel_.useField(4))
-      {
-        job_list.add(new DMDJobListItem("/publisher"));
-      }
-      if (option_panel_.useField(5))
-      {
-        job_list.add(new DMDJobListItem("/contributor"));
-      }
-      if (option_panel_.useField(6))
-      {
-        job_list.add(new DMDJobListItem("/type"));
-      }
-      if (option_panel_.useField(7))
-      {
-        job_list.add(new DMDJobListItem("/language"));
-      }
-      if (option_panel_.useField(8))
-      {
-        job_list.add(new DMDJobListItem("/collection"));
-      }
-      if (option_panel_.useField(9))
-      {
-        job_list.add(new DMDJobListItem("/rights"));
-      }
-      if (option_panel_.useField(10))
-      {
-        job_list.add(new DMDJobListItem("/identifier"));
-      }
-      if (option_panel_.useField(11))
-      {
-        job_list.add(new DMDJobListItem("/source"));
-      }
-      if (option_panel_.useField(12))
-      {
-        job_list.add(new DMDJobListItem("/relation"));
+        if (option_panel_.useField(count))
+        {
+          job_list.add(
+            new DMDJobListItem("/" + DinomedaMapper.FIELD_NAMES[count].toLowerCase()));
+        }
       }
     }
-   
-    return job_list;  
-  }  
-  
+
+    return job_list;
+  }
+
   protected DinomedaApplication application_ = null;
   protected DinomedaMapper mapper_ = null;
   protected DinomedaMainPanel main_panel_ = null;

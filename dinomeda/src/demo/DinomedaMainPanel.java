@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaMainPanel.java,v 1.1 2003/02/27 21:56:14 krake Exp $
+// $Id: DinomedaMainPanel.java,v 1.2 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -42,23 +42,23 @@ public class DinomedaMainPanel extends JPanel
   public DinomedaMainPanel()
   {
     panels_ = new DataPanel[DinomedaMapper.FIELD_COUNT];
-    
-    panels_[0] = new StringDataPanel("Title");
-    panels_[1] = new StringDataPanel("Creator");
-    panels_[2] = new DateDataPanel("Date");
-    panels_[3] = new StringDataPanel("Description");
-    panels_[4] = new StringDataPanel("Publisher");
-    panels_[5] = new StringDataPanel("Contributor");
-    panels_[6] = new StringDataPanel("Type");
-    panels_[7] = new StringDataPanel("Language");
-    panels_[8] = new StringDataPanel("Collection");
-    panels_[9] = new StringDataPanel("Rights");
-    panels_[10] = new StringDataPanel("Identifier");
-    panels_[11] = new StringDataPanel("Source");
-    panels_[12] = new StringDataPanel("Relation");    
-    
+
+    panels_[0] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[0]);
+    panels_[1] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[1]);
+    panels_[2] = new DateDataPanel(DinomedaMapper.FIELD_NAMES[2]);
+    panels_[3] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[3]);
+    panels_[4] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[4]);
+    panels_[5] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[5]);
+    panels_[6] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[6]);
+    panels_[7] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[7]);
+    panels_[8] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[8]);
+    panels_[9] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[9]);
+    panels_[10] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[10]);
+    panels_[11] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[11]);
+    panels_[12] = new StringDataPanel(DinomedaMapper.FIELD_NAMES[12]);
+
     setLayout(new GridLayout(panels_.length, 1));
-    
+
     for (int count = 0; count < panels_.length; ++count)
     {
       add(panels_[count]);

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13FileStore.java,v 1.2 2003/02/28 13:00:53 krake Exp $
+// $Id: PDFv13FileStore.java,v 1.3 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -99,7 +99,7 @@ public class PDFv13FileStore implements DMDFileStore
       
       if ((joblist_.get(i)).getStatus()!=1)
       {       
-        System.out.println("PDFv13FileStore -> read " + job);
+        System.err.println("PDFv13FileStore -> read " + job);
     
         getTag(job);
       
@@ -109,7 +109,7 @@ public class PDFv13FileStore implements DMDFileStore
       }
       else
       {
-        System.out.println("PDFv13FileStore -> "+ job + " already read");
+        System.err.println("PDFv13FileStore -> "+ job + " already read");
       }
     }
     file.close();
@@ -146,7 +146,7 @@ public class PDFv13FileStore implements DMDFileStore
       
       if ((joblist_.get(job)).getStatus()!=1)
       {       
-        System.out.println("PDFv13FileStore -> read " + job);
+        System.err.println("PDFv13FileStore -> read " + job);
     
         getTag(job);
       
@@ -156,7 +156,7 @@ public class PDFv13FileStore implements DMDFileStore
       }
       else
       {
-        System.out.println("PDFv13FileStore -> "+ job + " already read");
+        System.err.println("PDFv13FileStore -> "+ job + " already read");
       }
     }
     file.close();
@@ -183,7 +183,7 @@ public class PDFv13FileStore implements DMDFileStore
         
       if (joblist_.contains(FIELDS[i]) && joblist_.get(FIELDS[i]).getStatus()==2)
       {
-        System.out.println("PDFv13FileStore -> update " + FIELDS[i] + " '" + getElement(FIELDS[i]) + "'");   
+        System.err.println("PDFv13FileStore -> update " + FIELDS[i] + " '" + getElement(FIELDS[i]) + "'");
         (joblist_.get(FIELDS[i])).itemWrote();   
         count++;
       }
@@ -230,7 +230,7 @@ public class PDFv13FileStore implements DMDFileStore
         
       if (joblist.contains(FIELDS[i]) && joblist_.contains(FIELDS[i]) && joblist_.get(FIELDS[i]).getStatus()==2)
       {
-        System.out.println("PDFv13FileStore -> update " + FIELDS[i] + " '" + getElement(FIELDS[i]) + "'");   
+        System.err.println("PDFv13FileStore -> update " + FIELDS[i] + " '" + getElement(FIELDS[i]) + "'");
         (joblist_.get(FIELDS[i])).itemWrote();   
         count++;
       }
@@ -277,14 +277,14 @@ public class PDFv13FileStore implements DMDFileStore
       if (joblist_.contains(FIELDS[i]) && (joblist_.get(FIELDS[i])).getStatus()>0)
       {
         (joblist_.get(FIELDS[i])).itemWrote();
-        System.out.println("PDFv13FileStore -> write " + FIELDS[i] + " '" + getElement(FIELDS[i])+ "'");
+        System.err.println("PDFv13FileStore -> write " + FIELDS[i] + " '" + getElement(FIELDS[i])+ "'");
         
       }
       else
       {
         setElement(new DMDTextNode("/",FIELDS[i].substring(1), ""));
         joblist_.remove(FIELDS[i]);
-        System.out.println("PDFv13FileStore -> delete " + FIELDS[i]);
+        System.err.println("PDFv13FileStore -> delete " + FIELDS[i]);
       }
       count++;
     }
@@ -326,7 +326,7 @@ public class PDFv13FileStore implements DMDFileStore
       {
         
         (joblist_.get(FIELDS[i])).itemWrote();
-        System.out.println("PDFv13FileStore -> write " + FIELDS[i] + " '" + getElement(FIELDS[i])+"'");
+        System.err.println("PDFv13FileStore -> write " + FIELDS[i] + " '" + getElement(FIELDS[i])+"'");
         count++;
       }
       else
@@ -335,7 +335,7 @@ public class PDFv13FileStore implements DMDFileStore
         {
           setElement(new DMDTextNode("/",FIELDS[i].substring(1), ""));
           joblist_.remove(FIELDS[i]);
-          System.out.println("PDFv13FileStore -> delete " + FIELDS[i]);
+          System.err.println("PDFv13FileStore -> delete " + FIELDS[i]);
           count++;
         }
          else
@@ -553,7 +553,7 @@ public class PDFv13FileStore implements DMDFileStore
     }
     else
     {
-      //System.out.println("Info: Trailer contains no refernce to a previous cross-refernce table!");
+      //System.err.println("Info: Trailer contains no refernce to a previous cross-refernce table!");
     }
     
     if ((index=pdfTrailer_.indexOf("/Encrypt"))!=-1)
@@ -562,7 +562,7 @@ public class PDFv13FileStore implements DMDFileStore
     }
     else
     {
-      //System.out.println("Info: PDF-file is not encrypted!");
+      //System.err.println("Info: PDF-file is not encrypted!");
     }
     
     if ((index=pdfTrailer_.indexOf("/ID"))!=-1)
@@ -572,10 +572,10 @@ public class PDFv13FileStore implements DMDFileStore
     }
     else
     {
-      //System.out.println("Info: No ID");
+      //System.err.println("Info: No ID");
     }
    
-    //System.out.println(pdfTrailer_);
+    //System.err.println(pdfTrailer_);
   
   }
   
@@ -594,7 +594,7 @@ public class PDFv13FileStore implements DMDFileStore
       pdfInfoDict_ += file.readLine() + "\n";   
     }
     
-    //System.out.println(pdfInfoDict_);
+    //System.err.println(pdfInfoDict_);
   }
   
   //---------------------------------------------------------------
@@ -720,7 +720,7 @@ public class PDFv13FileStore implements DMDFileStore
       index++;
     }
      
-    //System.out.println("number: " +new String(buffer));
+    //System.err.println("number: " +new String(buffer));
    
     return (new Integer(new String(buffer).trim())).longValue();
   }

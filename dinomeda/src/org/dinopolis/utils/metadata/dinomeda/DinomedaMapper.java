@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaMapper.java,v 1.1 2003/02/27 21:56:13 krake Exp $
+// $Id: DinomedaMapper.java,v 1.2 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2002-2003
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002-2003
@@ -53,7 +53,12 @@ abstract public class DinomedaMapper implements DMDMapper
   public static final int IDENTIFIER  = 10;
   public static final int SOURCE      = 11;
   public static final int RELATION    = 12;
-  
+
+  public static final String[] FIELD_NAMES =
+    {"Title", "Creator", "Date", "Description", "Publisher",
+     "Contributor", "Type", "Language", "Collection", "Rights",
+     "Identifier", "Source", "Relation"};
+
   /**
    * Number of name fields.
    */

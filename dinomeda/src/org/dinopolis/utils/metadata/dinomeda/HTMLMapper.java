@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLMapper.java,v 1.2 2003/02/28 13:00:53 krake Exp $
+// $Id: HTMLMapper.java,v 1.3 2003/03/02 19:42:20 krake Exp $
 //
 // Copyright: Mattias Welponer <mattias@welponer.net>, year
 //
@@ -135,7 +135,7 @@ public class HTMLMapper extends DinomedaMapper
     else
     {
       //return new Date[]{makeDate(((DMDTextNode)node).get())};
-      System.out.println("HTMLMapper warning: Datemapping not yet implemented!");
+      System.err.println("HTMLMapper warning: Datemapping not yet implemented!");
       return new Date[]{new Date()};
     }
     
@@ -302,13 +302,13 @@ public class HTMLMapper extends DinomedaMapper
   
   public void setDate(Date[] date) throws ArrayIndexOutOfBoundsException
   {
-		if (date.length == 0)
+    if (date.length == 0)
     {
       store_.setElement(new DMDTextNode("/","creation time",null));  
     }
     else
     {
-      System.out.println("HTMLMapper warning: Datemapping not yet implemented!");
+      System.err.println("HTMLMapper warning: Datemapping not yet implemented!");
       //store_.setElement(new DMDTextNode("/","creation time",date[0]));
     }
   }
