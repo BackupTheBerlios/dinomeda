@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13Mapper.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: PDFv13Mapper.java,v 1.2 2003/03/03 15:05:16 osma Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -176,7 +176,7 @@ public class PDFv13Mapper extends DinomedaMapper
     DMDNode node1 = store_.getElement("/creationdate");
     DMDNode node2 = store_.getElement("/moddate");
     
-    if (node1.isNull() && node2.isNull()) 
+    if (node1.isNull() || node2.isNull()) 
     {
       if(!node1.isNull()) return new Date[]{makeDate(((DMDTextNode)node1).get())};
       if(!node2.isNull()) return new Date[]{makeDate(((DMDTextNode)node2).get()),
@@ -461,7 +461,7 @@ public class PDFv13Mapper extends DinomedaMapper
   
   private String pdfDate(Date pdate)
   {
-    
+    if (pdate == null) return null;    
     GregorianCalendar date = new GregorianCalendar();
     date.setTime(pdate);
     int year = date.get(date.YEAR);

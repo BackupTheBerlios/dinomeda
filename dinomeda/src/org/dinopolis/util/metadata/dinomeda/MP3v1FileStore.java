@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1FileStore.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: MP3v1FileStore.java,v 1.2 2003/03/03 15:05:16 osma Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002
 //
@@ -381,18 +381,25 @@ public class MP3v1FileStore implements DMDFileStore
   */
   public DMDNode getElement(String path)
   {
-    if (joblist_.contains(path))
+    DMDNode node = new DMDNode();
+        if (joblist_.contains(path))
       {
-        if (path.equals("/title")  ) return new DMDTextNode("/","title",(new String(getTag(path)).trim()));
-        if (path.equals("/artist") ) return new DMDTextNode("/","artist",(new String(getTag(path)).trim()));
-        if (path.equals("/album")  ) return new DMDTextNode("/","album",(new String(getTag(path)).trim()));
-        if (path.equals("/year")   ) return new DMDTextNode("/","year",(new String(getTag(path)).trim()));
-        if (path.equals("/comment")) return new DMDTextNode("/","comment",(new String(getTag(path)).trim()));
-        if (path.equals("/track")  ) return new DMDNumberNode("/","track",new Integer(getTag(path)[1]));
-        if (path.equals("/genre")  ) return new DMDNumberNode("/","genre",new Integer(getTag(path)[0]));
+        if (path.equals("/title")  ) node = new DMDTextNode("/","title",(new String(getTag(path)).trim()));
+        if (path.equals("/artist") ) node = new DMDTextNode("/","artist",(new String(getTag(path)).trim()));
+        if (path.equals("/album")  ) node = new DMDTextNode("/","album",(new String(getTag(path)).trim()));
+        if (path.equals("/year")   ) node = new DMDTextNode("/","year",(new String(getTag(path)).trim()));
+        if (path.equals("/comment")) node = new DMDTextNode("/","comment",(new String(getTag(path)).trim()));
+        if (path.equals("/track")  ) node = new DMDNumberNode("/","track",new Integer(getTag(path)[1]));
+        if (path.equals("/genre")  ) node = new DMDNumberNode("/","genre",new Integer(getTag(path)[0]));
       }
-      
-    return new DMDNode();
+         if (node.getNodeType()==node.TEXT_NODE)
+    {
+      if (node.isNull() || ((DMDTextNode)node).get().trim().length()==0)      {
+        return new DMDNode();      }      else      {        return node;      }    }        if (node.getNodeType()==node.NUMBER_NODE)
+    {
+      if (node.isNull() || ((DMDNumberNode)node).get().intValue()==-1)      {
+        return new DMDNode();      }      else      {        return node;      }    }
+        return new DMDNode();
   }
   
   //---------------------------------------------------------------
@@ -403,7 +410,7 @@ public class MP3v1FileStore implements DMDFileStore
   {
     String item = node.getPath() + node.getName();
     
-    if (node.getNodeType() == 1)
+    if (node.getNodeType() == node.TEXT_NODE)
     {
       String text;
       if (node.isNull())
@@ -419,9 +426,16 @@ public class MP3v1FileStore implements DMDFileStore
       joblist_.itemModified(item);
     }
     
-    if (node.getNodeType() == 2)
+    if (node.getNodeType() == node.NUMBER_NODE)
     {
-      setTag(item, ((DMDNumberNode)node).get());
+      Number number;      if (node.isNull())
+      {
+        System.out.println("isNull = true");        number = new Integer(-1);
+      }
+      else
+      {
+        number = ((DMDNumberNode)node).get();
+      }      System.out.println("setTag: " + item + " " + number);      setTag(item, number);
       joblist_.add(new DMDJobListItem(item));
       joblist_.itemModified(item);
     }
@@ -547,7 +561,7 @@ public class MP3v1FileStore implements DMDFileStore
    */
   private boolean setTag(String item, Number value) 
   {
-    byte[] bytevalue = new byte[1];
+    //if (value.intValue()==-1) value = new Integer(0);    byte[] bytevalue = new byte[1];
     bytevalue[0] = (value == null ? 0 : value.byteValue());
     return setTag(item, bytevalue);
   }

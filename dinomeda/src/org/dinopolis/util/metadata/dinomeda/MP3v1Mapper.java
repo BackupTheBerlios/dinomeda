@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1Mapper.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: MP3v1Mapper.java,v 1.2 2003/03/03 15:05:16 osma Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -431,7 +431,8 @@ public class MP3v1Mapper extends DinomedaMapper
   
   private Integer getGenreIndex(String name)
   {
-    for (int index=0;index<genres_.length;index++)
+    if (name == null || name.trim().length()==0) return new Integer(-1);
+        for (int index=0;index<genres_.length;index++)
     {
       if ((name).equals(genres_[index])) return new Integer(index);
     }
@@ -511,7 +512,8 @@ public class MP3v1Mapper extends DinomedaMapper
   
   private String year(Date pdate)
   {
-    GregorianCalendar date = new GregorianCalendar();
+    if (pdate == null) return null;
+        GregorianCalendar date = new GregorianCalendar();
     date.setTime(pdate);
     
     int year = date.get(date.YEAR);  

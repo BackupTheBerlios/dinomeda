@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13FileStore.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: PDFv13FileStore.java,v 1.2 2003/03/03 15:05:16 osma Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -371,19 +371,21 @@ public class PDFv13FileStore implements DMDFileStore
   */
   public DMDNode getElement(String path)
   {
-    if (joblist_.contains(path))
+    DMDNode node = new DMDNode();        if (joblist_.contains(path))
       {
-        if (path.equals("/title")    ) return new DMDTextNode("/","title",title_);
-        if (path.equals("/subject")    ) return new DMDTextNode("/","subject",subject_);
-        if (path.equals("/author")     ) return new DMDTextNode("/","author",author_);
-        if (path.equals("/keywords")   ) return new DMDTextNode("/","keywords",keywords_);
-        if (path.equals("/creator")    ) return new DMDTextNode("/","creator",creator_);
-        if (path.equals("/producer")   ) return new DMDTextNode("/","producer",producer_);
-        if (path.equals("/creationdate") ) return new DMDTextNode("/","creationdate",creationdate_);
-        if (path.equals("/moddate")    ) return new DMDTextNode("/","moddate",moddate_);
+        if (path.equals("/title")        ) node = new DMDTextNode("/","title",title_);
+        if (path.equals("/subject")      ) node = new DMDTextNode("/","subject",subject_);
+        if (path.equals("/author")       ) node = new DMDTextNode("/","author",author_);
+        if (path.equals("/keywords")     ) node = new DMDTextNode("/","keywords",keywords_);
+        if (path.equals("/creator")      ) node = new DMDTextNode("/","creator",creator_);
+        if (path.equals("/producer")     ) node = new DMDTextNode("/","producer",producer_);
+        if (path.equals("/creationdate") ) node = new DMDTextNode("/","creationdate",creationdate_);
+        if (path.equals("/moddate")      ) node = new DMDTextNode("/","moddate",moddate_);
       }
-  
-    return new DMDNode();
+    if (node.getNodeType()==node.TEXT_NODE)
+    {
+      if (node.isNull() || ((DMDTextNode)node).get().trim().length()==0)      {
+        return new DMDNode();      }      else      {        return node;      }    }        return new DMDNode();
   }
   
   //---------------------------------------------------------------
