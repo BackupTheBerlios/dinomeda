@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLFileStore.java,v 1.4 2003/03/11 09:58:54 krake Exp $
+// $Id: HTMLFileStore.java,v 1.5 2003/03/16 17:23:31 mwelp Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -231,8 +231,11 @@ public class HTMLFileStore implements DMDFileStore
     }
 
     // restore metadatalist
-    metalist_.add(tmp);
-        
+    for (int i=0; i<tmp.size(); i++)
+    {
+      metalist_.add(tmp.get(i));
+    }
+            
     // read complete file
     while(s != null)
     {
@@ -275,7 +278,7 @@ public class HTMLFileStore implements DMDFileStore
     
     // extern and intern joblist elements
     joblist.add(joblist_);
-    
+
     FileReader fr = new FileReader(file_);
     BufferedReader reader = new BufferedReader(fr);
     
@@ -343,7 +346,10 @@ public class HTMLFileStore implements DMDFileStore
     }
 
     // restore metadatalist
-    metalist_.add(tmp);
+    for (int i=0; i<tmp.size(); i++)
+    {
+      metalist_.add(tmp.get(i));
+    }
         
     // read complete file
     while(s != null)
@@ -429,7 +435,7 @@ public class HTMLFileStore implements DMDFileStore
     
     for (int i=0; i<metalist_.size(); i++)
     {
-      DMDNode node = (DMDNode)metalist_.get(i);
+      DMDNode node = (DMDNode)(metalist_.get(i));
       if(all || item.equals(node.getPath() + node.getName()))
       {
         list.add(node);

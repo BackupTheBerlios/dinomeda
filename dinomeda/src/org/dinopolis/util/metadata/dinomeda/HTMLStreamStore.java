@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLStreamStore.java,v 1.2 2003/03/05 09:03:52 osma Exp $
+// $Id: HTMLStreamStore.java,v 1.3 2003/03/16 17:23:32 mwelp Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -43,7 +43,9 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *//**
+ */
+
+/**
  * The HTMLStreamStore
  */
 
@@ -79,7 +81,9 @@ public class HTMLStreamStore implements DMDStreamStore
   }
     
   //---------------------------------------------------------------
-      public int getIOMode()
+  
+  
+  public int getIOMode()
   {
     int mode = NO_IO;
     
@@ -95,7 +99,9 @@ public class HTMLStreamStore implements DMDStreamStore
     }
     
     return mode;
-  }    public int read(DMDJobList joblist) throws IOException 
+  }
+  
+  public int read(DMDJobList joblist) throws IOException 
   {
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
@@ -230,8 +236,11 @@ public class HTMLStreamStore implements DMDStreamStore
     }
 
     // restore metadatalist
-    metalist_.add(tmp);
-            
+    for (int i=0; i<tmp.size(); i++)
+    {
+      metalist_.add(tmp.get(i));
+    }
+
     // read complete stream
     while(s != null)
     {
@@ -333,7 +342,10 @@ public class HTMLStreamStore implements DMDStreamStore
     }
 
     // restore metadatalist
-    metalist_.add(tmp);
+    for (int i=0; i<tmp.size(); i++)
+    {
+      metalist_.add(tmp.get(i));
+    }
         
     // read complete file
     while(s != null)

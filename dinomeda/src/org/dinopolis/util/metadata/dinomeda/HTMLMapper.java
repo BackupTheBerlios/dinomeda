@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLMapper.java,v 1.2 2003/03/05 09:03:52 osma Exp $
+// $Id: HTMLMapper.java,v 1.3 2003/03/16 17:23:32 mwelp Exp $
 //
 // Copyright: Mattias Welponer <mattias@welponer.net>, 2003
 //
@@ -33,7 +33,9 @@ import org.dinopolis.util.metadata.*;
 /**
  * @author Mattias Welponer <mattias@welponer.net>
  * @version 0.1.0
- *//**
+ */
+
+/**
  * Dinomeda mapper for metadata in HTML files
  */
 
@@ -357,11 +359,11 @@ public class HTMLMapper extends DinomedaMapper
     if (rights.length > maxRightsCount) throw new ArrayIndexOutOfBoundsException();
     if (rights.length == 0)
     {
-      store_.setElement(new DMDTextNode("/","rights",null));  
+      store_.setElement(new DMDTextNode("/","copyright",null));
     }
     else
     {
-      store_.setElement(new DMDTextNode("/","rights",rights[0]));  
+      store_.setElement(new DMDTextNode("/","copyright",rights[0]));  
     }
   }
   
