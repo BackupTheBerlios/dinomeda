@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaConfigurator.java,v 1.2 2003/03/03 13:56:39 krake Exp $
+// $Id: DinomedaConfigurator.java,v 1.3 2003/03/06 21:53:37 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -109,9 +109,13 @@ public class DinomedaConfigurator
       {
         addProvider(provider, value, trader);
       }
+      else
+      {
+        System.err.println("Configurator: " + provider + " class not found");
+      }
     }
   }
-  
+
   //---------------------------------------------------------------
   /**
    * Utility method for converting a String into an int.
@@ -129,7 +133,7 @@ public class DinomedaConfigurator
     {
       return def;
     }
-    
+
     int number = def;
     try
     {
@@ -139,10 +143,10 @@ public class DinomedaConfigurator
     {
       exception.printStackTrace(System.err);
     }
-    
+
     return number;
-  } 
-  
+  }
+
   //---------------------------------------------------------------
   /**
    * Utility method for parsing an IO mode String.
@@ -157,7 +161,7 @@ public class DinomedaConfigurator
     {
       return 0;
     }
-    
+
     int number = 0;
     if (value.indexOf("r") != -1)
     {
@@ -171,15 +175,15 @@ public class DinomedaConfigurator
     {
       number |= DMDHandler.UPDATE;
     }
-        
+
     return number;
-  } 
-  
+  }
+
   //---------------------------------------------------------------
   /**
    * Reads the values for the given provider and tried to add them
    * to the trader.
-   * 
+   *
    * @param provider the provider ID of the config keys
    * @param provider_class the provider's fully qualified class name
    * @param trader the trader to configure
@@ -267,7 +271,7 @@ public class DinomedaConfigurator
   {
     String mime = config_.getProperty(mapper + ".mimetype");
     String mapping = config_.getProperty(mapper + ".mapping");
-    
+
     try
     {
       trader.addMapperInfo(provider_class, mime, mapping);
@@ -277,6 +281,6 @@ public class DinomedaConfigurator
       exception.printStackTrace(System.err);
     }
   }
-  
-  protected Properties config_;  
+
+  protected Properties config_;
 }

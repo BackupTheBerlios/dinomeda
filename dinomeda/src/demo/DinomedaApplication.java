@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaApplication.java,v 1.3 2003/03/02 19:59:08 krake Exp $
+// $Id: DinomedaApplication.java,v 1.4 2003/03/06 21:53:37 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -156,7 +156,7 @@ abstract public class DinomedaApplication
     query.setNameMapping(name_mapping);
     query.setMIMEType(mime_type);
     
-    System.err.println("Looking up provder for " + query);
+    System.err.println("Looking up provider for " + query);
     DMDServiceProvider provider = trader_.findService(query);
     if (provider == null)
     {

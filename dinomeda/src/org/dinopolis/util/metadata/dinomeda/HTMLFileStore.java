@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLFileStore.java,v 1.2 2003/03/05 09:03:52 osma Exp $
+// $Id: HTMLFileStore.java,v 1.3 2003/03/06 21:53:37 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -41,7 +41,9 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *//**
+ */
+
+/**
  * The HTMLFileStore
  */
 
@@ -66,7 +68,9 @@ public class HTMLFileStore implements DMDFileStore
   {
     file_ = new File(filename);
   }
-    public int getIOMode()
+
+  
+  public int getIOMode()
   {
     if (file_ == null || !file_.exists())
     {
@@ -78,14 +82,17 @@ public class HTMLFileStore implements DMDFileStore
     {
       mode |= READ;
     }
+    /* disabled until bug fixed
     if (file_.canWrite())
     {
       mode |= WRITE;
       mode |= UPDATE;
     }
-    
+    */
     return mode;
-  }    public int read(DMDJobList joblist) throws IOException 
+  }
+  
+  public int read(DMDJobList joblist) throws IOException 
   {
     int count = 0;
     boolean all = joblist.contains("/") || joblist.contains("/*");
