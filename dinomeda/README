@@ -24,11 +24,19 @@ The project files are organized in three packages:
   See LICENCE.GPL for details
 
 ########################
+Documentation:
+The only additional documentation at this time is the project description paper.
+Currently only available in a German version.
+However it contains quite nice diagrams serving as an overview of
+involved classes.
+
+########################
 Requirements:
 The library has no external requirements other than Java.
 
 The example implementation requires two additonal class libraries, both
-being included in the CVS package (both licenced under LGPL as well).
+being included in the CVS package (both licenced under LGPL as well):
+PAT (www.javaregex.com) and Sixlegs PNG Decoder (www.sixlegs.com/software/png)
 
 The demo application requires a Java2 implementation due to its SWING GUI mode.
 It has be tested using a Blackdown JDK1.3.1 on Linux.
@@ -36,6 +44,7 @@ It has be tested using a Blackdown JDK1.3.1 on Linux.
 The Makefile located in the project's top directory is only tested under Linux.
 It contains some references to Unix shell commands, such as rm, cd and mkdir.
 
+########################
 Building:
 Using the Makefile, building library, plugins and demo application is as simple
 as
