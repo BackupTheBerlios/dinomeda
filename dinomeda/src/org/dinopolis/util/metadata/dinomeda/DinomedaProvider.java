@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaProvider.java,v 1.5 2003/03/11 09:58:54 krake Exp $
+// $Id: DinomedaProvider.java,v 1.6 2003/03/18 17:04:18 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002
 //
@@ -64,7 +64,7 @@ public class DinomedaProvider implements DMDServiceProvider
       new DMDServiceOffer(CLASS_NAME, "audio/x-mp3", null, "File", DMDHandler.ALL_IO);
         
     store_offers_[1] = 
-      new DMDServiceOffer(CLASS_NAME, "application/x-pdf", null, "File", DMDHandler.ALL_IO);
+      new DMDServiceOffer(CLASS_NAME, "application/pdf", null, "File", DMDHandler.ALL_IO);
 
     store_offers_[2] = 
       new DMDServiceOffer(CLASS_NAME, "image/png", null, "File", DMDHandler.READ);
@@ -84,7 +84,7 @@ public class DinomedaProvider implements DMDServiceProvider
       new DMDServiceOffer(CLASS_NAME, "audio/x-mp3", "Dinomeda", null, DMDHandler.NO_IO);
   
     mapper_offers_[1] = 
-      new DMDServiceOffer(CLASS_NAME, "application/x-pdf", "Dinomeda", null, DMDHandler.NO_IO);
+      new DMDServiceOffer(CLASS_NAME, "application/pdf", "Dinomeda", null, DMDHandler.NO_IO);
   
     mapper_offers_[2] = 
       new DMDServiceOffer(CLASS_NAME, "image/png", "Dinomeda", null, DMDHandler.NO_IO);

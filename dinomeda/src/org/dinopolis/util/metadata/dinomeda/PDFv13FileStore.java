@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13FileStore.java,v 1.3 2003/03/05 09:03:52 osma Exp $
+// $Id: PDFv13FileStore.java,v 1.4 2003/03/18 17:04:18 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -31,7 +31,9 @@ import org.dinopolis.util.metadata.*;
 /**
  * @author Martin Oswald <oss1@sbox.tugraz.at>
  * @version 0.2.1
- *//**
+ */
+
+/**
  * Store working with metadata in PDF files
  */
 
@@ -294,12 +296,14 @@ public class PDFv13FileStore implements DMDFileStore
   
   public String getMIMEType()
   {
-    return "application-pdf";
+    return "application/pdf";
   }
   
   public DMDNode getElement(String path)
   {
-    DMDNode node = new DMDNode();        if (joblist_.contains(path))
+    DMDNode node = new DMDNode();
+    
+    if (joblist_.contains(path))
       {
         if (path.equals("/title")        ) node = new DMDTextNode("/","title",title_);
         if (path.equals("/subject")      ) node = new DMDTextNode("/","subject",subject_);
@@ -312,8 +316,17 @@ public class PDFv13FileStore implements DMDFileStore
       }
     if (node.getNodeType()==node.TEXT_NODE)
     {
-      if (node.isNull() || ((DMDTextNode)node).get().trim().length()==0)      {
-        return new DMDNode();      }      else      {        return node;      }    }        return new DMDNode();
+      if (node.isNull() || ((DMDTextNode)node).get().trim().length()==0)
+      {
+        return new DMDNode();
+      }
+      else
+      {
+        return node;
+      }
+    }
+    
+    return new DMDNode();
   }
   
   public void setElement(DMDNode node)
@@ -377,7 +390,8 @@ public class PDFv13FileStore implements DMDFileStore
     file_ = file;
     
     
-  }  
+  }
+  
   public void setFileName(String filename) throws FileNotFoundException 
   {
     file_ = new File(filename);

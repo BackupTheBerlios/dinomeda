@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MIME.java,v 1.1 2003/02/27 21:56:14 krake Exp $
+// $Id: MIME.java,v 1.2 2003/03/18 17:04:17 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -21,13 +21,19 @@ import java.io.File;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
- * @version 0.1.0
- *
- * Class or interface description (mandatory)
+ * @version 0.1.1
+ */
+
+/**
+ * Class providing methods to determine a file's MIME type.
  */
 
 public class MIME
 {
+  /**
+   * Tries to determine a file's MIME type by comparing
+   * the filename's extension with some known file extensions.
+   */
   public static String getMIMETypeForFile(File file)
   {
     String filename = file.getName();
@@ -51,7 +57,7 @@ public class MIME
     }
     else if (extension.startsWith("pdf"))
     {
-      mime_type = "application/x-pdf";
+      mime_type = "application/pdf";
     }
     else if (extension.startsWith("png"))
     {
