@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaTrader.java,v 1.4 2003/03/04 23:00:41 krake Exp $
+// $Id: DinomedaTrader.java,v 1.5 2003/03/05 13:12:33 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -186,7 +186,7 @@ public class DinomedaTrader implements DMDTrader
     while (iter.hasNext())
     {
       List offer_list = (List) iter.next();
-      
+
       Iterator list_iter = offer_list.iterator();
       while (list_iter.hasNext())
       {
@@ -200,7 +200,7 @@ public class DinomedaTrader implements DMDTrader
         }
       }
     }
-        
+
     int mode = 0;
     if (query.getProviderClass() != null)
     {
@@ -218,7 +218,7 @@ public class DinomedaTrader implements DMDTrader
     {
       mode |= 8;
     }
-    
+
     List result_list = new ArrayList();
     switch (mode)
     {
