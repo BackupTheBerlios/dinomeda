@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DMDServiceQuery.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DMDServiceQuery.java,v 1.2 2003/03/04 23:00:41 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -16,24 +16,28 @@
 
 package org.dinopolis.util.metadata;
 
-// Java imports
-
-// external packages
-
-// local packages
-
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
  * @version 0.2.0
+ */
+
+/**
+ * The DMDServiceQuery is basically a DMDServiceOffer with
+ * SET methods.
+ * The intended use is querying a DMDTrader implementation for services.
  *
- * Class or interface description (mandatory)
+ * @see DMDTrader
  */
 
 public class DMDServiceQuery extends DMDServiceOffer
 {
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Creates an empty query.
+   * Empty means that class name, MIME type, name mapping and IO method
+   * are null and IO mode is NO_IO.
+   *
+   * @see DMDHandler
    */
   public DMDServiceQuery()
   {
@@ -42,17 +46,23 @@ public class DMDServiceQuery extends DMDServiceOffer
   
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Sets the MIME type to query for.
+   * It this is set to null, it will match any MIME type.
+   *
+   * @param mime_type the MIME type to match or null for any
    */
 
   public void setMIMEType(String mime_type)
   {
     mime_type_ = mime_type;
-  }  
-  
+  }
+
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Sets the name mapping to query for.
+   * It this is set to null, it will match any name mapping.
+   *
+   * @param mapping the name mapping to match or null for any
    */
   public void setNameMapping(String mapping)
   {
@@ -61,30 +71,35 @@ public class DMDServiceQuery extends DMDServiceOffer
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Sets the IO method to query for.
+   * It this is set to null, it will match any IO method.
+   *
+   * @param io_method the IO method to match or null for any
    */
   public void setIOMethod(String io_method)
   {
     io_method_ = io_method;
   }
-  
+
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Sets the IO mode to query for.
+   * It this is set to DMDHandler.NO_IO, it will match any IO method.
+   *
+   * @param io_mode the IO mode to match or NO_IO for any
+   *
+   * @see DMDHandler
    */
   public void setIOMode(int mode_flags)
   {
     io_mode_ = mode_flags;
   }
-  
+
   //---------------------------------------------------------------
-  /**
-   * Method description
-   */
   public String toString()
   {
     StringBuffer buffer = new StringBuffer();
-    
+
     buffer.append("DMDServiceOffer{provider=");
     buffer.append(provider_class_);
     buffer.append(",mime=");

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaTrader.java,v 1.3 2003/03/03 23:17:33 krake Exp $
+// $Id: DinomedaTrader.java,v 1.4 2003/03/04 23:00:41 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -19,12 +19,12 @@ package org.dinopolis.util.metadata.dinomeda;
 // Java imports
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 // local imports
 import org.dinopolis.util.metadata.DMDHandler;
@@ -52,9 +52,9 @@ public class DinomedaTrader implements DMDTrader
    */
   public DinomedaTrader()
   {
-    stores_by_mime_ = new HashMap();
-    mappers_by_mime_ = new HashMap();
-    provider_classes_ = new HashMap();
+    stores_by_mime_ = new TreeMap();
+    mappers_by_mime_ = new TreeMap();
+    provider_classes_ = new TreeMap();
   }
 
   //---------------------------------------------------------------
@@ -159,10 +159,12 @@ public class DinomedaTrader implements DMDTrader
     
     Collection offers = stores_by_mime_.values();
     Iterator iter = offers.iterator();
+
+    // find all matching stores
     while (iter.hasNext())
     {
       List offer_list = (List) iter.next();
-      
+
       Iterator list_iter = offer_list.iterator();
       while (list_iter.hasNext())
       {
@@ -176,9 +178,11 @@ public class DinomedaTrader implements DMDTrader
         }
       }
     }
-    
+
     offers = mappers_by_mime_.values();
     iter = offers.iterator();
+
+    // find all matching mappers
     while (iter.hasNext())
     {
       List offer_list = (List) iter.next();
@@ -218,6 +222,7 @@ public class DinomedaTrader implements DMDTrader
     List result_list = new ArrayList();
     switch (mode)
     {
+      // type of service irrelevant
       case 0:
       case 1:
       case 2:
@@ -225,21 +230,24 @@ public class DinomedaTrader implements DMDTrader
         result_list.addAll(stores);
         result_list.addAll(mappers);
         break;
-        
+
+      // stores only
       case 4:
       case 5:
       case 6:
       case 7:
         result_list.addAll(stores);
         break;
-        
+
+      // mappers only
       case 8:
       case 9:
       case 10:
       case 11:
         result_list.addAll(mappers);
         break;
-        
+
+      // looking for mapper store combinations
       case 12:
       case 13:
       case 14:
@@ -248,9 +256,12 @@ public class DinomedaTrader implements DMDTrader
         {
           for (int mcount = 0; mcount < mappers.size(); ++mcount)
           {
+            // create combination offers of stores and mappers
+            // which share provider and MIME type
+
             DMDServiceOffer store = (DMDServiceOffer) stores.get(scount);
             DMDServiceOffer mapper = (DMDServiceOffer) mappers.get(mcount);
-            if (store.matchesStore(mapper)) // provider and mime equal
+            if (store.matchesStore(mapper)) // provider and MIME equal
             {
               result_list.add(
                 new DMDServiceOffer(store.getProviderClass(), store.getMIMEType(),
@@ -289,7 +300,8 @@ public class DinomedaTrader implements DMDTrader
     {
       return;
     }
-    
+
+    // try to load the class and store it of successfull
     Class provider_class = Class.forName(class_name);
     provider_classes_.put(class_name, provider_class);
   }
@@ -309,7 +321,7 @@ public class DinomedaTrader implements DMDTrader
 
     if (!provider_classes_.containsKey(provider_class_name))
     {
-      throw new DMDNoSuchProviderException();
+      throw new DMDNoSuchProviderException(provider_class_name);
     }
 
     DMDServiceOffer offer =
@@ -338,7 +350,7 @@ public class DinomedaTrader implements DMDTrader
 
     if (!provider_classes_.containsKey(provider_class_name))
     {
-      throw new DMDNoSuchProviderException();
+      throw new DMDNoSuchProviderException(provider_class_name);
     }
 
     DMDServiceOffer offer =
@@ -359,7 +371,7 @@ public class DinomedaTrader implements DMDTrader
   {
     if (!provider_classes_.containsKey(provider_class_name))
     {
-      throw new DMDNoSuchProviderException();
+      throw new DMDNoSuchProviderException(provider_class_name);
     }
 
     provider_classes_.remove(provider_class_name);
@@ -369,6 +381,9 @@ public class DinomedaTrader implements DMDTrader
     Iterator iter;
     values = stores_by_mime_.values();
     iter = values.iterator();
+
+    // find all store offers of the provider
+    // and remove them on encounter
     while (iter.hasNext())
     {
       List list = (List) iter.next();
@@ -381,6 +396,7 @@ public class DinomedaTrader implements DMDTrader
           list_iter.remove();
         }
       }
+      // remove the MIME type's list if it is empty now
       if (list.isEmpty())
       {
         iter.remove();
@@ -389,6 +405,9 @@ public class DinomedaTrader implements DMDTrader
 
     values = mappers_by_mime_.values();
     iter = values.iterator();
+
+    // find all mapper offers of the provider
+    // and remove them on encounter
     while (iter.hasNext())
     {
       List list = (List) iter.next();
@@ -401,6 +420,8 @@ public class DinomedaTrader implements DMDTrader
           list_iter.remove();
         }
       }
+
+      // remove the MIME type's list if it is empty now
       if (list.isEmpty())
       {
         iter.remove();
