@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: MP3v1FileStore.java,v 1.5 2003/04/24 09:08:49 osma Exp $
+// $Id: MP3v1FileStore.java,v 1.6 2003/05/06 16:46:27 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2002
 //
@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // external packages
 
@@ -29,9 +30,12 @@ import java.util.ArrayList;
 import org.dinopolis.util.metadata.*;
 
 /**
- * @author Mattias Welponer <maba@sbox.tugraz.at> * @author Martin Oswald <ossi1@sbox.tugraz.at>
+ * @author Mattias Welponer <maba@sbox.tugraz.at>
+ * @author Martin Oswald <ossi1@sbox.tugraz.at>
  * @version 0.5.0
- *//**
+ */
+
+/**
  * Store working with MP3 files
  */
 
@@ -384,14 +388,17 @@ public class MP3v1FileStore implements DMDFileStore
     
     if (node.getNodeType() == node.NUMBER_NODE)
     {
-      Number number;      if (node.isNull())
-      {        number = new Integer(-1);
+      Number number;
+      if (node.isNull())
+      {
+        number = new Integer(-1);
 
       }
       else
       {
         number = ((DMDNumberNode)node).get();
-      }      setTag(item, number);
+      }
+      setTag(item, number);
 
       joblist_.add(new DMDJobListItem(item));
       joblist_.itemModified(item);
@@ -399,11 +406,11 @@ public class MP3v1FileStore implements DMDFileStore
     
   }
   
-  public DMDNodeIterator get(String item) 
+  public DMDNodeIterator get(String item)
   {
     ArrayList nodelist = new ArrayList();
     boolean all = item.equals("/") || item.equals("/*");
-      
+
     if(all || item.equals("/title"))   nodelist.add(getElement("/title"));
     if(all || item.equals("/artist"))  nodelist.add(getElement("/artist"));
     if(all || item.equals("/album"))   nodelist.add(getElement("/album"));
@@ -411,7 +418,7 @@ public class MP3v1FileStore implements DMDFileStore
     if(all || item.equals("/year"))  nodelist.add(getElement("/year"));
     if(all || item.equals("/track"))   nodelist.add(getElement("/track"));
     if(all || item.equals("/genre"))   nodelist.add(getElement("/genre"));
-     
+
     return new DMDNodeIterator(nodelist.iterator());
   }
 
@@ -422,7 +429,12 @@ public class MP3v1FileStore implements DMDFileStore
       setElement(iterator.nextNode());
     }
   }
- 
+
+  public Iterator iterator()
+  {
+    return get("/");
+  }
+
   public File getFile()
   {
     return file_;

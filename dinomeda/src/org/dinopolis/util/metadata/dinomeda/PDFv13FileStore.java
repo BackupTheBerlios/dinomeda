@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PDFv13FileStore.java,v 1.5 2003/04/24 09:08:49 osma Exp $
+// $Id: PDFv13FileStore.java,v 1.6 2003/05/06 16:46:27 krake Exp $
 //
 // Copyright: Martin Oswald <ossi1@sbox.tugraz.at>, 2003
 //
@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // external packages
 
@@ -380,6 +381,11 @@ public class PDFv13FileStore implements DMDFileStore
     }
   }
   
+  public Iterator iterator()
+  {
+    return get("/");
+  }
+
   public File getFile()
   {
     return file_;

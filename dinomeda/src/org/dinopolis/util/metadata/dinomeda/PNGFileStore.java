@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PNGFileStore.java,v 1.3 2003/04/24 09:08:49 osma Exp $
+// $Id: PNGFileStore.java,v 1.4 2003/05/06 16:46:27 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Vector;
 
 // external packages
@@ -38,13 +39,16 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *//**
+ */
+
+/**
  * The PNGFileStore 
  */
 
 public class PNGFileStore implements DMDFileStore
 {
-    public File getFile()
+  
+  public File getFile()
   {
     return file_;
   }
@@ -62,7 +66,8 @@ public class PNGFileStore implements DMDFileStore
   {
     file_ = new File(filename);
   }
-  public int getIOMode()
+
+  public int getIOMode()
   {
     if (file_ == null || !file_.exists())
     {
@@ -203,7 +208,14 @@ public class PNGFileStore implements DMDFileStore
 
   
   //---------------------------------------------------------------
-  
+
+  public Iterator iterator()
+  {
+    return get("/");
+  }
+
+  //---------------------------------------------------------------
+
   public DMDNodeIterator get(String item) 
   {
     Vector list = new Vector();

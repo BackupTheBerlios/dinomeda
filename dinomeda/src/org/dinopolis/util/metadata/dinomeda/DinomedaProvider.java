@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaProvider.java,v 1.6 2003/03/18 17:04:18 krake Exp $
+// $Id: DinomedaProvider.java,v 1.7 2003/05/06 16:46:27 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002
 //
@@ -120,14 +120,14 @@ public class DinomedaProvider implements DMDServiceProvider
       case 2: store = new PNGFileStore();
         break;
 
-      case 3: store = new HTMLFileStore();
-        break;
+      //case 3: store = new HTMLFileStore();
+      //  break;
 
       case 4: store = new PNGStreamStore();
         break;
 
-      case 5: store = new HTMLStreamStore();
-        break;
+      //case 5: store = new HTMLStreamStore();
+      //  break;
 
       default:
         break;

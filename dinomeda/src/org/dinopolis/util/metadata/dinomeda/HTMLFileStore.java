@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLFileStore.java,v 1.8 2003/04/24 09:08:49 osma Exp $
+// $Id: HTMLFileStore.java,v 1.9 2003/05/06 16:46:27 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -26,6 +26,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -465,6 +466,11 @@ public class HTMLFileStore implements DMDFileStore
     }
     
     return new DMDNodeIterator(list.iterator());
+  }
+
+  public Iterator iterator()
+  {
+    return get("/");
   }
 
   public String toString()

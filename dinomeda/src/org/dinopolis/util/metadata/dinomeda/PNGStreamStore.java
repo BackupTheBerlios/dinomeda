@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: PNGStreamStore.java,v 1.3 2003/04/24 09:08:49 osma Exp $
+// $Id: PNGStreamStore.java,v 1.4 2003/05/06 16:46:27 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Vector;
 
 // external packages
@@ -38,7 +39,9 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
  * @version 0.1.0
- *//**
+ */
+
+/**
  * The PNGStreamStore 
  */
 
@@ -74,7 +77,9 @@ public class PNGStreamStore implements DMDStreamStore
   }
     
   //---------------------------------------------------------------
-      public int getIOMode()
+  
+  
+  public int getIOMode()
   {
     int mode = NO_IO;
     
@@ -241,9 +246,16 @@ public class PNGStreamStore implements DMDStreamStore
     
     return new DMDNodeIterator(list.iterator());
   }
-  
+
   //---------------------------------------------------------------
-  
+
+  public Iterator iterator()
+  {
+    return get("/");
+  }
+
+  //---------------------------------------------------------------
+
   public String toString()
   {
     String out = new String();
@@ -254,7 +266,8 @@ public class PNGStreamStore implements DMDStreamStore
     return out;	
   }
   
-  //---------------------------------------------------------------  
+  //---------------------------------------------------------------
+  
   public String getMIMEType()
   {
     return "image/png";
