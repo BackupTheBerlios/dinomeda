@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLMapper.java,v 1.3 2003/03/16 17:23:32 mwelp Exp $
+// $Id: HTMLMapper.java,v 1.4 2003/03/16 17:36:40 mwelp Exp $
 //
 // Copyright: Mattias Welponer <mattias@welponer.net>, 2003
 //
@@ -32,7 +32,7 @@ import org.dinopolis.util.metadata.*;
 
 /**
  * @author Mattias Welponer <mattias@welponer.net>
- * @version 0.1.0
+ * @version 0.1.1
  */
 
 /**

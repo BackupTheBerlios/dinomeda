@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLFileStore.java,v 1.5 2003/03/16 17:23:31 mwelp Exp $
+// $Id: HTMLFileStore.java,v 1.6 2003/03/16 17:36:40 mwelp Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -40,7 +40,7 @@ import org.dinopolis.util.metadata.DMDJobListItem;
 
 /**
  * @author Mattias Welponer <maba@sbox.tugraz.at>
- * @version 0.1.0
+ * @version 0.1.1
  */
 
 /**
