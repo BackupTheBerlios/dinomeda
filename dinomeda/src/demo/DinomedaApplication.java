@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaApplication.java,v 1.4 2003/03/06 21:53:37 krake Exp $
+// $Id: DinomedaApplication.java,v 1.5 2003/03/11 09:58:54 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -94,7 +94,6 @@ abstract public class DinomedaApplication
   public void configureTrader() throws IOException
   {
     String config_path = config_.getProperty("dinomeda.configpath");
-    System.err.println("cp:" + config_path);
     String trader_config = config_.getProperty("dinomeda.traderconfig");
 
     DinomedaConfigurator configurator = new DinomedaConfigurator();

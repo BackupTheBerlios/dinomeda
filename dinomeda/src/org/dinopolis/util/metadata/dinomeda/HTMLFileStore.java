@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: HTMLFileStore.java,v 1.3 2003/03/06 21:53:37 krake Exp $
+// $Id: HTMLFileStore.java,v 1.4 2003/03/11 09:58:54 krake Exp $
 //
 // Copyright: Mattias Welponer <maba@sbox.tugraz.at>, 2003
 //
@@ -82,13 +82,12 @@ public class HTMLFileStore implements DMDFileStore
     {
       mode |= READ;
     }
-    /* disabled until bug fixed
+
     if (file_.canWrite())
     {
       mode |= WRITE;
       mode |= UPDATE;
     }
-    */
     return mode;
   }
   

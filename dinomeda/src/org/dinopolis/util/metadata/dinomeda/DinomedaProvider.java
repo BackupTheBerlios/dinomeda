@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaProvider.java,v 1.4 2003/03/05 13:12:33 krake Exp $
+// $Id: DinomedaProvider.java,v 1.5 2003/03/11 09:58:54 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002
 //
@@ -70,13 +70,13 @@ public class DinomedaProvider implements DMDServiceProvider
       new DMDServiceOffer(CLASS_NAME, "image/png", null, "File", DMDHandler.READ);
 
     store_offers_[3] = 
-      new DMDServiceOffer(CLASS_NAME, "text/html", null, "File", DMDHandler.READ);
-            
-    store_offers_[4] = 
+      new DMDServiceOffer(CLASS_NAME, "text/html", null, "File", DMDHandler.ALL_IO);
+
+    store_offers_[4] =
       new DMDServiceOffer(CLASS_NAME, "image/png", null, "Stream", DMDHandler.READ);
-    
-    store_offers_[5] = 
-      new DMDServiceOffer(CLASS_NAME, "text/html", null, "Stream", DMDHandler.READ);
+
+    store_offers_[5] =
+      new DMDServiceOffer(CLASS_NAME, "text/html", null, "Stream", DMDHandler.ALL_IO);
     
     mapper_offers_ = new DMDServiceOffer[MAPPERS];
     

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: AccessOptionPanel.java,v 1.4 2003/03/10 20:14:39 krake Exp $
+// $Id: AccessOptionPanel.java,v 1.5 2003/03/11 09:58:54 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -37,7 +37,7 @@ import javax.swing.JPanel;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
- * @version 0.1.0
+ * @version 0.1.1
  *
  * Class or interface description (mandatory)
  */
@@ -121,6 +121,7 @@ public class AccessOptionPanel extends JPanel
               }
             }
           }
+          last_selected_mapping_ = (String) mapping_combo_.getSelectedItem();
         }
       }
     }

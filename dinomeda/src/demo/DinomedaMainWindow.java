@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaMainWindow.java,v 1.4 2003/03/10 17:54:57 krake Exp $
+// $Id: DinomedaMainWindow.java,v 1.5 2003/03/11 09:58:54 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002-2003
 //
@@ -47,7 +47,7 @@ import org.dinopolis.util.metadata.DMDMapper;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
- * @version 0.1.0
+ * @version 0.1.1
  *
  * Class or interface description (mandatory)
  */
@@ -259,6 +259,8 @@ public class DinomedaMainWindow extends JFrame implements ActionListener, Change
       }
     }
     status_panel_.clearStatusText();
+
+    file_chooser_ = null;
   }
     
   //---------------------------------------------------------------
