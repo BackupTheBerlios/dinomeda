@@ -2,7 +2,10 @@ export JAVAC=javac
 export JCFLAGS=-sourcepath src -d classes
 export PACKAGEBASE=org/dinopolis/utils/metadata
 
-all: sixlegs base dinomeda demo
+all: classdir sixlegs base dinomeda demo
+
+classdir:
+	test -e classes || mkdir classes
 
 sixlegs:
 	$(MAKE) -f src/sixlegs.mak
