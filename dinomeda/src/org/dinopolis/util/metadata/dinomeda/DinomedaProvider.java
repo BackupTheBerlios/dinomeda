@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// $Id: DinomedaProvider.java,v 1.1 2003/03/02 19:59:08 krake Exp $
+// $Id: DinomedaProvider.java,v 1.2 2003/03/03 12:35:55 krake Exp $
 //
 // Copyright: Kevin Krammer <voyager@sbox.tugraz.at>, 2002
 //
@@ -29,21 +29,32 @@ import org.dinopolis.util.metadata.DMDStore;
 
 /**
  * @author Kevin Krammer <voyager@sbox.tugraz.at>
- * @version 0.1.0
- *
- * Class or interface description (mandatory)
+ * @version 0.2.0
+ */
+
+/**
+ * The provider of the Dinomeda Project.
  */
 
 public class DinomedaProvider implements DMDServiceProvider
 {
+  /**
+   * Number of known stores
+   */
   public static final int STORES  = 6;
+  /**
+   * Number of known mappers
+   */
   public static final int MAPPERS = 4;
-  public static final String CLASS_NAME = 
+  /**
+   * The class name of this provider
+   */
+  public static final String CLASS_NAME =
     "org.dinopolis.utils.metadata.dinomeda.DinomedaProvider";
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Creates the provider instance and initializes its offers.
    */
   public DinomedaProvider()
   {
@@ -84,7 +95,7 @@ public class DinomedaProvider implements DMDServiceProvider
    
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Implementation of getStore as required by DMDProvider
    */
   public DMDStore getStore(DMDServiceOffer query)
   {
@@ -96,38 +107,38 @@ public class DinomedaProvider implements DMDServiceProvider
         break;
       }
     }
-    
+
     DMDStore store = null;
     switch (count)
     {
       case 0: store = new MP3v1FileStore();
         break;
-      
+
       case 1: store = new PDFv13FileStore();
         break;
-        
+
       case 2: store = new PNGFileStore();
         break;
-          
+
       case 3: store = new HTMLFileStore();
         break;
-        
+
       case 4: store = new PNGStreamStore();
         break;
-          
+
       case 5: store = new HTMLStreamStore();
         break;
-        
+
       default:
         break;
     }
-    
+
     return store;
   }
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Implementation of getMapper as required by DMDProvider
    */
   public DMDMapper getMapper(DMDServiceOffer query)
   {
@@ -164,33 +175,53 @@ public class DinomedaProvider implements DMDServiceProvider
 
   //---------------------------------------------------------------
   /**
-   * Method description
+   * Implementation of canProvide as required by DMDProvider
    */
   public boolean canProvide(DMDServiceOffer query)
   {
-    boolean provides_store = false;
-    
-    for (int count = 0; count < STORES; ++count)
+    if (query == null)
     {
-      if (store_offers_[count].matchesStore(query))
+      return false;
+    }
+
+    boolean provides_store;
+
+    // if no store is needed, we don't look for one
+    if (query.getIOMethod() == null && query.getIOMode() == DMDHandler.NO_IO)
+    {
+      provides_store = true;
+    }
+    else
+    {
+      for (int count = 0; count < STORES; ++count)
       {
-        provides_store = true;
-        break;
+        if (store_offers_[count].matchesStore(query))
+        {
+          provides_store = true;
+          break;
+        }
       }
     }
 
-    if (provides_store)
+    boolean provides_mapper;
+    // if no mapper is needed, we don't look for one
+    if (query.getNameMapping() == null)
+    {
+      provides_mapper =true;
+    }
+    else
     {
       for (int count = 0; count < MAPPERS; ++count)
       {
         if (mapper_offers_[count].matchesMapper(query))
         {
-          return true;
+          provides_mapper = true;
+          break;
         }
       }
     }
-    
-    return false;
+
+    return provides_mapper && provides_store;
   }
   
   protected DMDServiceOffer[] store_offers_;
