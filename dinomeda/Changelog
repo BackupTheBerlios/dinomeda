@@ -4,6 +4,9 @@
   * Added an iterator() method to the store interface to make it look
     more common to Java developers.
 
+2003-04-15 Mattias  Welponer <maba@sbox.tugraz.at>
+  * Changing HTMLStores from RegExp to Java's native regexp.
+
 2003-03-16 Mattias  Welponer <maba@sbox.tugraz.at>
   * Fixed bug in HTML stores.
 
